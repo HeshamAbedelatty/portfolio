@@ -1,801 +1,584 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hesham Ahmed | Backend Engineer</title>
-    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dnkuwemxn/image/upload/v1784559494/logo_riydzz.png">
-    <meta name="description" content="Hesham Ahmed Abdelatty — Backend Engineer specializing in Django, DRF, PostgreSQL, and workflow automation.">
-    <!--
-      SOCIAL PREVIEW (Open Graph / Twitter) — pre-filled assuming you deploy
-      to https://heshamabedelatty.github.io/ per your repo name. If you use
-      a different repo/URL, update og:url, og:image, and twitter:image below.
-    -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Hesham Ahmed — Backend Engineer">
-    <meta property="og:description" content="Backend Engineer with 2+ years building scalable APIs, databases, and automation workflows with Django, PostgreSQL, and Docker.">
-    <meta property="og:image" content="https://heshamabedelatty.github.io/personal_photo.png">
-    <meta property="og:url" content="https://heshamabedelatty.github.io/">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Hesham Ahmed — Backend Engineer">
-    <meta name="twitter:description" content="Backend Engineer with 2+ years building scalable APIs, databases, and automation workflows with Django, PostgreSQL, and Docker.">
-    <meta name="twitter:image" content="https://heshamabedelatty.github.io/personal_photo.png">
-    <!-- Google Fonts & FontAwesome for Icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hesham Ahmed — Backend Engineer</title>
+<link rel="icon" type="image/png" href="https://res.cloudinary.com/dnkuwemxn/image/upload/v1784559494/logo_riydzz.png">
+<meta name="description" content="Hesham Ahmed Abdelatty — Backend Engineer specializing in Django, DRF, PostgreSQL, and workflow automation.">
+<!--
+  SOCIAL PREVIEW (Open Graph / Twitter) — once this page is live at its
+  final URL, replace PASTE_YOUR_LIVE_PORTFOLIO_URL_HERE below with that
+  URL so shared links on LinkedIn, WhatsApp, etc. point back correctly.
+-->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hesham Ahmed — Backend Engineer">
+<meta property="og:description" content="Backend Engineer with 2+ years building scalable APIs, databases, and automation workflows with Django, PostgreSQL, and Docker.">
+<meta property="og:image" content="https://res.cloudinary.com/dnkuwemxn/image/upload/v1784559494/logo_riydzz.png">
+<meta property="og:url" content="https://heshamabedelatty.github.io/portfolio/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hesham Ahmed — Backend Engineer">
+<meta name="twitter:description" content="Backend Engineer with 2+ years building scalable APIs, databases, and automation workflows with Django, PostgreSQL, and Docker.">
+<meta name="twitter:image" content="https://res.cloudinary.com/dnkuwemxn/image/upload/v1784559494/logo_riydzz.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-deep:#0B1E3D;
+    --navy-mid:#132A52;
+    --navy-line:#24406e;
+    --gold:#C9A227;
+    --gold-light:#E7C769;
+    --paper:#F6F3EA;
+    --paper-dim:#EDE9DC;
+    --ink:#161A22;
+    --slate:#5B6472;
+    --term-bg:#0D1117;
+    --term-line:#1e2734;
+    --ok:#59D499;
+    --radius:2px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{display:block;max-width:100%;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px;}
+  ::selection{background:var(--gold);color:var(--navy-deep);}
 
-    <style>
-        :root {
-            /* Dark Theme Colors (Default) */
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --accent-gold: #c5a059;
-            --accent-navy: #38bdf8;
-            --border-color: #334155;
-            --shadow: linear-gradient(145deg, #1e293b, #0f172a);
-            --transition: all 0.3s ease;
-        }
+  /* focus visibility */
+  a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
 
-        [data-theme="light"] {
-            /* Light Theme Colors */
-            --bg-primary: #f8fafc;
-            --bg-secondary: #ffffff;
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --accent-gold: #b38f43;
-            --accent-navy: #1e40af;
-            --border-color: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
-        }
+  /* ---------- NAV ---------- */
+  header.site-nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(246,243,234,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(11,30,61,0.08);
+  }
+  .nav-inner{
+    max-width:1120px;margin:0 auto;padding:16px 32px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .nav-brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem;letter-spacing:0.02em;color:var(--navy-deep);}
+  .nav-mono{
+    width:30px;height:30px;border-radius:50%;
+    background:conic-gradient(var(--navy-deep) 0deg 180deg, var(--gold) 180deg 360deg);
+    position:relative;flex-shrink:0;
+  }
+  .nav-mono::after{
+    content:'HA';position:absolute;inset:3px;border-radius:50%;
+    background:var(--paper);display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-weight:700;font-size:0.55rem;color:var(--navy-deep);
+  }
+  .nav-logo{width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1px solid rgba(11,30,61,0.12);}
+  nav.links{display:flex;gap:28px;font-size:0.88rem;font-weight:500;}
+  nav.links a{color:var(--slate);transition:color .2s;position:relative;}
+  nav.links a:hover{color:var(--navy-deep);}
+  .nav-cta{
+    font-family:'JetBrains Mono',monospace;font-size:0.78rem;font-weight:500;
+    background:var(--navy-deep);color:var(--paper);
+    padding:8px 16px;border-radius:var(--radius);
+    border:1px solid var(--navy-deep);
+  }
+  .nav-cta:hover{background:transparent;color:var(--navy-deep);}
+  .burger{display:none;background:none;border:none;cursor:pointer;color:var(--navy-deep);}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:168px 0 96px;
+    background:
+      radial-gradient(circle at 82% 12%, rgba(201,162,39,0.10), transparent 45%),
+      var(--paper);
+    position:relative;overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.15fr 0.85fr;gap:64px;align-items:center;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--gold);
+    letter-spacing:0.12em;text-transform:uppercase;
+    display:flex;align-items:center;gap:10px;margin-bottom:22px;
+  }
+  .eyebrow::before{content:'';width:26px;height:1px;background:var(--gold);}
+  h1.name{
+    font-family:'Fraunces',serif;font-weight:600;
+    font-size:clamp(2.6rem,5.2vw,4.1rem);
+    line-height:1.02;color:var(--navy-deep);letter-spacing:-0.01em;
+  }
+  h1.name em{font-style:italic;color:var(--gold);font-weight:500;}
+  .role-line{
+    margin-top:18px;font-size:1.18rem;color:var(--slate);max-width:46ch;
+  }
+  .role-line strong{color:var(--navy-deep);font-weight:600;}
+  .hero-actions{margin-top:38px;display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    font-size:0.9rem;font-weight:600;padding:13px 26px;border-radius:var(--radius);
+    display:inline-flex;align-items:center;gap:8px;transition:all .2s;
+  }
+  .btn-primary{background:var(--navy-deep);color:var(--paper);border:1px solid var(--navy-deep);}
+  .btn-primary:hover{background:var(--gold);border-color:var(--gold);color:var(--navy-deep);}
+  .btn-ghost{border:1px solid rgba(11,30,61,0.25);color:var(--navy-deep);}
+  .btn-ghost:hover{border-color:var(--navy-deep);background:rgba(11,30,61,0.04);}
 
-        html {
-            scroll-behavior: smooth;
-        }
+  .hero-portrait{
+    position:relative;display:flex;justify-content:center;
+  }
+  .portrait-ring{
+    position:relative;width:320px;height:320px;border-radius:50%;
+    padding:14px;
+  }
+  .portrait-ring img{
+    width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:top center;
+    box-shadow:0 30px 60px -20px rgba(11,30,61,0.35);
+  }
+  .status-chip{
+    position:absolute;bottom:8px;right:14px;
+    background:var(--navy-deep);color:var(--paper);
+    font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:500;
+    padding:7px 13px;border-radius:20px;display:flex;align-items:center;gap:7px;
+    box-shadow:0 10px 24px -8px rgba(11,30,61,0.5);
+  }
+  .status-dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px rgba(89,212,153,0.25);}
 
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            transition: var(--transition);
-            line-height: 1.6;
-        }
+  /* ---------- SECTION HEADS ---------- */
+  section{padding:96px 0;}
+  .section-head{margin-bottom:52px;max-width:60ch;}
+  .section-tag{
+    font-family:'JetBrains Mono',monospace;font-size:0.76rem;color:var(--gold);
+    text-transform:uppercase;letter-spacing:0.12em;margin-bottom:10px;display:block;
+  }
+  h2.section-title{
+    font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.8rem,3.2vw,2.5rem);
+    color:var(--navy-deep);
+  }
+  .section-sub{color:var(--slate);margin-top:12px;font-size:1.02rem;}
 
-        /* Container styling */
-        .container {
-            max-width: 1140px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+  /* ring divider (echoes the logo's split ring) */
+  .ring-divider{
+    display:flex;align-items:center;gap:14px;margin:0 auto;
+    justify-content:center;padding:8px 0 0;
+  }
+  .ring-divider .half{width:64px;height:2px;}
+  .ring-divider .half.l{background:linear-gradient(to left, var(--navy-deep), transparent);}
+  .ring-divider .half.r{background:linear-gradient(to right, var(--gold), transparent);}
+  .ring-divider .dot{width:8px;height:8px;border-radius:50%;background:conic-gradient(var(--navy-deep) 0 180deg, var(--gold) 180deg 360deg);}
 
-        /* Header & Navigation */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 1000;
-            transition: var(--transition);
-        }
-        [data-theme="light"] header {
-            background-color: rgba(248, 250, 252, 0.8);
-        }
+  /* ---------- ABOUT ---------- */
+  .about{background:var(--paper-dim);}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
+  .about p{color:var(--slate);margin-bottom:16px;font-size:1.03rem;max-width:52ch;}
+  .about p strong{color:var(--navy-deep);}
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px;}
+  .stat{border-left:2px solid var(--gold);padding-left:14px;}
+  .stat b{display:block;font-family:'Fraunces',serif;font-size:1.9rem;color:var(--navy-deep);}
+  .stat span{font-size:0.82rem;color:var(--slate);}
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px;
-        }
+  /* ---------- TERMINAL (signature element) ---------- */
+  .terminal{
+    background:var(--term-bg);border-radius:8px;overflow:hidden;
+    box-shadow:0 40px 80px -30px rgba(0,0,0,0.5);
+    border:1px solid var(--term-line);
+  }
+  .terminal-bar{
+    display:flex;align-items:center;gap:8px;padding:12px 16px;
+    background:#151b26;border-bottom:1px solid var(--term-line);
+  }
+  .tdot{width:10px;height:10px;border-radius:50%;}
+  .tdot.r{background:#FF5F56;} .tdot.y{background:#FFBD2E;} .tdot.g{background:#27C93F;}
+  .terminal-title{
+    margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:#8b96a5;
+  }
+  .terminal-body{
+    padding:22px 22px 26px;font-family:'JetBrains Mono',monospace;font-size:0.84rem;color:#c9d1d9;
+    min-height:260px;
+  }
+  .terminal-body .prompt{color:var(--ok);}
+  .terminal-body .path{color:#8b96a5;}
+  .terminal-body .cmd{color:#E7C769;}
+  .terminal-line{margin-bottom:6px;white-space:pre-wrap;}
+  .json-key{color:#79c0ff;}
+  .json-str{color:#a5d6ff;}
+  .json-num{color:#f2cc60;}
+  .blink{display:inline-block;width:7px;height:14px;background:#c9d1d9;vertical-align:-2px;animation:blink 1s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
 
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: var(--text-primary);
-            text-decoration: none;
-        }
+  /* ---------- SKILLS AS ENDPOINTS ---------- */
+  .endpoints{display:flex;flex-direction:column;gap:1px;background:rgba(11,30,61,0.1);border-radius:6px;overflow:hidden;}
+  .endpoint{
+    background:var(--paper);padding:20px 24px;display:grid;
+    grid-template-columns:64px 160px 1fr;gap:20px;align-items:center;
+  }
+  .method{
+    font-family:'JetBrains Mono',monospace;font-weight:700;font-size:0.74rem;
+    padding:4px 0;text-align:center;border-radius:4px;color:var(--paper);
+    background:var(--navy-deep);
+  }
+  .method.gold{background:var(--gold);color:var(--navy-deep);}
+  .ep-path{font-family:'JetBrains Mono',monospace;font-size:0.86rem;color:var(--navy-deep);font-weight:600;}
+  .ep-desc{color:var(--slate);font-size:0.93rem;}
+  .ep-desc b{color:var(--ink);font-weight:600;}
 
-        .brand img {
-            height: 40px;
-            width: 40px;
-            object-fit: contain;
-        }
+  /* ---------- EXPERIENCE TIMELINE ---------- */
+  .timeline{border-left:2px solid rgba(11,30,61,0.15);padding-left:36px;display:flex;flex-direction:column;gap:44px;margin-left:8px;}
+  .tl-item{position:relative;}
+  .tl-item::before{
+    content:'';position:absolute;left:-43px;top:4px;width:14px;height:14px;border-radius:50%;
+    background:var(--paper);border:2px solid var(--gold);
+  }
+  .tl-year{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--gold);font-weight:600;letter-spacing:0.04em;}
+  .tl-role{font-family:'Fraunces',serif;font-size:1.28rem;font-weight:600;color:var(--navy-deep);margin-top:4px;}
+  .tl-org{color:var(--slate);font-size:0.92rem;margin-top:2px;font-weight:500;}
+  .tl-desc{color:var(--slate);margin-top:10px;max-width:60ch;font-size:0.97rem;}
 
-        .nav-links {
-            display: flex;
-            gap: 25px;
-            align-items: center;
-            list-style: none;
-        }
+  /* ---------- PROJECTS ---------- */
+  .projects{background:var(--paper-dim);}
+  .project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .card{
+    background:var(--paper);border-radius:6px;padding:28px;
+    border:1px solid rgba(11,30,61,0.08);transition:transform .25s, box-shadow .25s;
+    display:flex;flex-direction:column;height:100%;
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:0 24px 40px -20px rgba(11,30,61,0.2);}
+  .card-icon{
+    width:42px;height:42px;border-radius:8px;background:var(--navy-deep);color:var(--gold-light);
+    display:flex;align-items:center;justify-content:center;margin-bottom:18px;
+    font-family:'JetBrains Mono',monospace;font-weight:700;font-size:0.9rem;
+  }
+  .card h3{font-family:'Fraunces',serif;font-size:1.2rem;color:var(--navy-deep);margin-bottom:10px;}
+  .card p{color:var(--slate);font-size:0.92rem;flex:1;}
+  .stack{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px;}
+  .tag{
+    font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--navy-deep);
+    background:rgba(201,162,39,0.14);padding:4px 9px;border-radius:20px;
+  }
+  .card-link{
+    margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:0.78rem;
+    color:var(--navy-deep);font-weight:600;transition:color .2s;display:inline-block;
+  }
+  .card-link:hover{color:var(--gold);}
 
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-        }
+  /* ---------- LINKEDIN POSTS ---------- */
+  .posts{background:var(--paper-dim);}
+  .post-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;}
+  .post-card{
+    background:var(--paper);border-radius:6px;padding:28px;
+    border:1px solid rgba(11,30,61,0.08);transition:transform .25s, box-shadow .25s;
+    display:flex;flex-direction:column;height:100%;
+  }
+  .post-card:hover{transform:translateY(-4px);box-shadow:0 24px 40px -20px rgba(11,30,61,0.2);}
+  .post-date{
+    font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--gold);
+    text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;
+  }
+  .post-card h3{font-family:'Fraunces',serif;font-size:1.15rem;color:var(--navy-deep);margin-bottom:10px;line-height:1.3;}
+  .post-card p{color:var(--slate);font-size:0.92rem;flex:1;}
+  .post-link{
+    margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:0.78rem;
+    color:var(--navy-deep);font-weight:600;transition:color .2s;
+  }
+  .post-card:hover .post-link{color:var(--gold);}
 
-        .nav-links a:hover {
-            color: var(--accent-gold);
-        }
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{background:var(--navy-deep);color:var(--paper);padding:88px 0 32px;}
+  .footer-inner{text-align:center;}
+  .footer-inner .section-tag{color:var(--gold-light);}
+  .footer-inner h2{
+    font-family:'Fraunces',serif;font-size:clamp(2rem,4vw,3rem);font-weight:600;
+    margin:14px 0 30px;color:var(--paper);
+  }
+  .footer-inner h2 em{color:var(--gold-light);font-style:italic;}
+  .contact-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:64px;}
+  .contact-links a{
+    font-family:'JetBrains Mono',monospace;font-size:0.85rem;
+    border:1px solid rgba(246,243,234,0.25);padding:12px 22px;border-radius:var(--radius);
+    transition:all .2s;
+  }
+  .contact-links a:hover{background:var(--gold);border-color:var(--gold);color:var(--navy-deep);}
+  .foot-bottom{
+    display:flex;justify-content:space-between;align-items:center;
+    border-top:1px solid rgba(246,243,234,0.14);padding-top:26px;
+    font-size:0.8rem;color:rgba(246,243,234,0.55);flex-wrap:wrap;gap:12px;
+  }
+  .foot-brand{display:flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;}
 
-        .theme-toggle {
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            cursor: pointer;
-            font-size: 1.2rem;
-            padding: 5px;
-            transition: var(--transition);
-        }
-
-        .theme-toggle:hover {
-            color: var(--accent-gold);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 160px 0 100px 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 50px;
-        }
-
-        .hero-content {
-            flex: 1;
-        }
-
-        .hero-title h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            line-height: 1.2;
-        }
-
-        .hero-title span {
-            color: var(--accent-gold);
-        }
-
-        .hero-subtitle {
-            font-size: 1.5rem;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-
-        .hero-description {
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-            max-width: 600px;
-        }
-
-        .hero-image {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-        }
-
-        .hero-image img {
-            max-width: 380px;
-            width: 100%;
-            border-radius: 50%;
-            border: 4px solid var(--accent-gold);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background-color: var(--accent-gold);
-            color: #0f172a !important;
-        }
-
-        .btn-primary:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-            margin-left: 15px;
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--bg-secondary);
-            border-color: var(--accent-gold);
-        }
-
-        /* Sections General */
-        section {
-            padding: 80px 0;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 40px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -8px;
-            width: 50px;
-            height: 3px;
-            background-color: var(--accent-gold);
-        }
-
-        /* Experience & Timeline */
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .timeline-item {
-            padding: 20px 30px;
-            position: relative;
-            background-color: var(--bg-secondary);
-            border-radius: 8px;
-            margin-bottom: 30px;
-            border-left: 4px solid var(--accent-gold);
-            box-shadow: var(--shadow);
-        }
-
-        .timeline-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .role-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-
-        .company {
-            color: var(--accent-gold);
-            font-weight: 500;
-        }
-
-        .duration {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            background-color: var(--bg-primary);
-            padding: 4px 10px;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-        }
-
-        .timeline-body ul {
-            list-style-type: none;
-        }
-
-        .timeline-body li {
-            position: relative;
-            padding-left: 20px;
-            margin-bottom: 10px;
-            color: var(--text-secondary);
-        }
-
-        .timeline-body li::before {
-            content: "▹";
-            position: absolute;
-            left: 0;
-            color: var(--accent-gold);
-        }
-
-        /* Grid Layouts (Projects & Skills) */
-        .grid-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 25px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-gold);
-        }
-
-        .card-title {
-            font-size: 1.25rem;
-            margin-bottom: 12px;
-            color: var(--text-primary);
-        }
-
-        .card-text {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-
-        .card-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .tag {
-            font-size: 0.8rem;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            padding: 4px 10px;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-        }
-
-        /* Skills Section */
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        .skill-category {
-            background-color: var(--bg-secondary);
-            padding: 25px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-        }
-
-        .skill-category h3 {
-            color: var(--accent-gold);
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 8px;
-        }
-
-        .skill-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        /* Contact & Footer */
-        .contact-info {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 30px;
-            margin-top: 20px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1.1rem;
-            color: var(--text-primary);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .contact-item:hover {
-            color: var(--accent-gold);
-        }
-
-        .contact-item i {
-            color: var(--accent-gold);
-            font-size: 1.4rem;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px 0;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .hero {
-                flex-direction: column-reverse;
-                text-align: center;
-                padding-top: 120px;
-            }
-            .hero-description {
-                margin: 0 auto 30px auto;
-            }
-            .hero-image img {
-                max-width: 260px;
-            }
-            .nav-links {
-                display: none; /* Simplification for code brevity; handles mobile fallback */
-            }
-            .btn-secondary {
-                margin-left: 0;
-                margin-top: 10px;
-            }
-            .timeline-header {
-                flex-direction: column;
-            }
-        }
-    </style>
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-portrait{order:-1;}
+    .portrait-ring{width:220px;height:220px;}
+    .about-grid{grid-template-columns:1fr;}
+    .endpoint{grid-template-columns:52px 1fr;grid-template-rows:auto auto;}
+    .ep-desc{grid-column:1/-1;}
+    .project-grid{grid-template-columns:1fr;}
+    .post-grid{grid-template-columns:1fr;}
+    nav.links{display:none;}
+    .stat-row{grid-template-columns:1fr 1fr;row-gap:20px;}
+  }
+</style>
 </head>
 <body>
 
-    <!-- Top Navigation Bar -->
-    <header>
-        <div class="container nav">
-            <a href="#" class="brand">
-                <img src="https://res.cloudinary.com/dnkuwemxn/image/upload/v1784559494/logo_riydzz.png" alt="HA Logo">
-                <span>Hesham Ahmed</span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#posts">Posts</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li>
-                    <button class="theme-toggle" id="themeBtn" aria-label="Toggle Theme">
-                        <i class="fa-solid fa-sun"></i>
-                    </button>
-                </li>
-            </ul>
-        </div>
-    </header>
+<header class="site-nav">
+  <div class="nav-inner">
+    <div class="nav-brand"><img class="nav-logo" src="https://res.cloudinary.com/dnkuwemxn/image/upload/v1784559494/logo_riydzz.png" alt="Hesham Ahmed logo"> Hesham Ahmed</div>
+    <nav class="links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#posts">Posts</a>
+    </nav>
+    <a href="#contact" class="nav-cta">$ contact --me</a>
+  </div>
+</header>
 
-    <!-- Hero / Introduction Section -->
-    <section class="container hero">
-        <div class="hero-content">
-            <p class="hero-subtitle">Hello, I'm</p>
-            <div class="hero-title">
-                <h1>Hesham Ahmed <span>Abdelatty</span></h1>
-            </div>
-            <div class="hero-subtitle" style="color: var(--accent-gold);">Backend Engineer</div>
-            <p class="hero-description">
-                Specialized in building and deploying scalable web applications, automation architectures, and enterprise management systems. Expert in translating complex workflow demands into high-performance, containerized realities.
-            </p>
-            <div>
-                <a href="#contact" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Contact Me</a>
-                <a href="#projects" class="btn btn-secondary">View Work</a>
-                <a href="Hesham_Ahmed_Resume.pdf" class="btn btn-secondary" download><i class="fa-solid fa-download"></i> Résumé</a>
-            </div>
-        </div>
-        <div class="hero-image">
-            <img src="personal_photo.png" alt="Hesham Ahmed">
-        </div>
-    </section>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Backend Engineer</span>
+      <h1 class="name">Hesham Ahmed<br><em>builds the systems</em><br>you never see.</h1>
+      <p class="role-line">I build <strong>REST APIs, databases, and automation workflows</strong> with Django, PostgreSQL, and Docker — turning tricky business requirements into reliable, production-ready software.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">View projects →</a>
+        <a href="Hesham_Ahmed_Resume.pdf" class="btn btn-ghost" download>Download résumé ↓</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      </div>
+    </div>
+    <div class="hero-portrait">
+      <div class="portrait-ring">
+        <img src="https://res.cloudinary.com/dnkuwemxn/image/upload/v1786285312/copy_of_personal_photo_jagevy.png" alt="Hesham Ahmed">
+        <span class="status-chip"><span class="status-dot"></span>200 OK · available</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <h2 class="section-title">Professional Summary</h2>
-            <p class="hero-description" style="max-width: 100%; font-size: 1.1rem;">
-                Backend Engineer with 2+ years of experience constructing production-grade infrastructures using Django, Django REST Framework (DRF), PostgreSQL, and Docker. Highly skilled in REST API performance tracking, schema design, and operational workflow automations via tools like n8n and CRM systems. Driven by software reliability, query optimization, and technical sustainability.
-            </p>
-        </div>
-    </section>
+<section id="about" class="about">
+  <div class="wrap about-grid">
+    <div>
+      <span class="section-tag">// about</span>
+      <h2 class="section-title">Reliability is a feature.</h2>
+      <p style="margin-top:22px;">I'm a <strong>backend engineer</strong> with 2+ years building and deploying scalable web apps and enterprise systems using Django, DRF, PostgreSQL, and Docker. I specialize in clean REST APIs, database optimization, and automating workflows with n8n and chatbot integrations.</p>
+      <p><strong>I love diving into system architecture</strong>, solving complex backend problems, and turning tricky business requirements into reliable, high-performance software.</p>
+      <div class="stat-row">
+        <div class="stat"><b>2+</b><span>years in backend engineering</span></div>
+        <div class="stat"><b>65%</b><span>manual admin effort cut via automation</span></div>
+        <div class="stat"><b>600+</b><span>end users served across shipped systems</span></div>
+      </div>
+    </div>
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span>
+        <span class="terminal-title">hesham@appgain — zsh</span>
+      </div>
+      <div class="terminal-body">
+        <div class="terminal-line"><span class="prompt">➜</span> <span class="path">~/services</span> <span class="cmd">curl -s api.appgain.io/status | jq</span></div>
+        <div class="terminal-line">{</div>
+        <div class="terminal-line">&nbsp;&nbsp;<span class="json-key">"service"</span>: <span class="json-str">"n8n-automation-core"</span>,</div>
+        <div class="terminal-line">&nbsp;&nbsp;<span class="json-key">"status"</span>: <span class="json-str">"healthy"</span>,</div>
+        <div class="terminal-line">&nbsp;&nbsp;<span class="json-key">"stack"</span>: <span class="json-str">"django + drf + postgres"</span>,</div>
+        <div class="terminal-line">&nbsp;&nbsp;<span class="json-key">"integrations"</span>: <span class="json-str">"whatsapp, zoho"</span>,</div>
+        <div class="terminal-line">&nbsp;&nbsp;<span class="json-key">"engineer_on_call"</span>: <span class="json-str">"hesham.abdelatty"</span></div>
+        <div class="terminal-line">}</div>
+        <div class="terminal-line" style="margin-top:14px;"><span class="prompt">➜</span> <span class="path">~/services</span> <span class="blink"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Professional Experience Section -->
-    <section id="experience">
-        <div class="container">
-            <h2 class="section-title">Work Experience</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-header">
-                        <div>
-                            <div class="role-title">Backend Developer</div>
-                            <div class="company">AppGain.io</div>
-                        </div>
-                        <span class="duration">Jun 2024 - Present</span>
-                    </div>
-                    <div class="timeline-body">
-                        <ul>
-                            <li>Developed and sustained enterprise backend systems and REST APIs leveraging Python and Docker components.</li>
-                            <li>Monitored high-traffic production logs to analyze exceptions, accelerating bug tracking and platform stability.</li>
-                            <li>Engineered automated workflows integrating n8n mechanisms with the WhatsApp Meta API and internal cloud frameworks.</li>
-                            <li>Built complex web scraping pipelines dealing with over 8GB of multi-platform structural metrics parsed to JSON environments.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head" style="margin:0 auto 52px;text-align:center;">
+      <span class="section-tag">// skills.json</span>
+      <h2 class="section-title">What I bring to the stack</h2>
+      <p class="section-sub" style="margin-left:auto;margin-right:auto;">Core competencies, served up the way a backend engineer would document them.</p>
+    </div>
+    <div class="endpoints">
+      <div class="endpoint">
+        <span class="method">GET</span>
+        <span class="ep-path">/backend</span>
+        <span class="ep-desc"><b>Django, DRF, Flask, Wagtail CMS</b> — clean REST APIs and business logic.</span>
+      </div>
+      <div class="endpoint">
+        <span class="method">GET</span>
+        <span class="ep-path">/data</span>
+        <span class="ep-desc"><b>PostgreSQL, SQL Server, MongoDB, Redis</b> — schema design, indexing, and query performance.</span>
+      </div>
+      <div class="endpoint">
+        <span class="method">GET</span>
+        <span class="ep-path">/infra</span>
+        <span class="ep-desc"><b>Docker, Azure, GitLab CI/CD, VPS</b> — deployments that stay reliable in production.</span>
+      </div>
+      <div class="endpoint">
+        <span class="method method gold">POST</span>
+        <span class="ep-path">/automation</span>
+        <span class="ep-desc"><b>n8n, WhatsApp Meta API, Zoho</b> — workflow automation and system integrations.</span>
+      </div>
+      <div class="endpoint">
+        <span class="method">GET</span>
+        <span class="ep-path">/languages</span>
+        <span class="ep-desc"><b>Python, JavaScript, Java, C++, HTML/CSS</b> — comfortable across the stack.</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Projects Section -->
-    <section id="projects">
-        <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
-            <!--
-              PROJECT REPO LINKS
-              ===================
-              Each card ends with a "View code" link. Replace
-              PASTE_REPO_URL_HERE with the actual GitHub/GitLab URL for
-              that project. If a repo is private, delete that <a> line.
-            -->
-            <div class="grid-cards">
-                
-                <!-- Project 1 -->
-                <div class="card">
-                    <div>
-                        <div class="card-title">Military Officers Affairs System</div>
-                        <p class="card-text">Central personnel optimization network serving 600+ personnel. Automates scheduling matrices and tasks. Features an custom Arabic RTL engine converting programmatic tables to formal compliant PDFs, mitigating manual verification metrics by 65%.</p>
-                    </div>
-                    <div>
-                        <div class="card-tags">
-                            <span class="tag">Django</span>
-                            <span class="tag">PostgreSQL</span>
-                            <span class="tag">Bootstrap</span>
-                            <span class="tag">Azure</span>
-                        </div>
-                        <div style="display:inline-block;margin-top:16px;color:var(--accent-gold);font-weight:600;font-size:0.9rem;">Production</div>
-                    </div>
-                </div>
+<section id="experience" class="about">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">// experience</span>
+      <h2 class="section-title">Where I've built things</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <span class="tl-year">Jun 2024 — Present</span>
+        <div class="tl-role">Backend Developer</div>
+        <div class="tl-org">AppGain.io</div>
+        <p class="tl-desc">Build and maintain backend services and automation workflows with Python, Docker, and REST APIs. Design n8n, WhatsApp Meta API, and Zoho integrations, and monitor production systems to keep customer-facing services reliable.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-year">Nov 2023 — Jan 2025</span>
+        <div class="tl-role">Backend Developer</div>
+        <div class="tl-org">Minders (Extracurricular)</div>
+        <p class="tl-desc">Led backend architecture using Django and DRF for internal and public-facing systems; designed RESTful APIs and optimized database queries, improving website performance and traffic by 30%.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-year">Oct 2022 — Oct 2023</span>
+        <div class="tl-role">Programming Member</div>
+        <div class="tl-org">ICPC Community — Cairo University</div>
+        <p class="tl-desc">Sharpened data structures and algorithms through Codeforces contests, solving 60+ problems to build efficient, competition-grade problem-solving skills.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-year">Jul 2024</span>
+        <div class="tl-role">B.Sc. Computer Science</div>
+        <div class="tl-org">Cairo University — GPA 3.38/4.0</div>
+        <p class="tl-desc">Relevant coursework: Data Structures, Algorithm Design, Database Systems, Advanced Software Engineering, Web Technology.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-                <!-- Project 2 -->
-                <div class="card">
-                    <div>
-                        <div class="card-title">Sporting Academy Management System</div>
-                        <p class="card-text">Desktop framework orchestrating Electron assets seamlessly with a remote, isolated DRF architecture processing thousands of concurrent user tables. Features robust permission policies and comprehensive data filtering engines.</p>
-                    </div>
-                    <div>
-                        <div class="card-tags">
-                            <span class="tag">Electron.js</span>
-                            <span class="tag">DRF</span>
-                            <span class="tag">PostgreSQL</span>
-                            <span class="tag">Docker</span>
-                        </div>
-                        <div style="display:inline-block;margin-top:16px;color:var(--accent-gold);font-weight:600;font-size:0.9rem;">Production</div>
-                    </div>
-                </div>
+<section id="projects" class="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">// projects</span>
+      <h2 class="section-title">Systems worth pointing at</h2>
+    </div>
+    <!--
+      PROJECT REPO LINKS
+      ===================
+      Each card below ends with a "View code" link. Replace
+      PASTE_REPO_URL_HERE with the actual GitHub/GitLab URL for that
+      project. If a project's repo is private, either remove that
+      <a class="card-link">...</a> line entirely, or point it at your
+      GitHub profile instead.
+    -->
+    <div class="project-grid">
+      <div class="card">
+        <div class="card-icon">SYS</div>
+        <h3>Military Officers Affairs System</h3>
+        <p>A personnel management system for 600+ military officers, automating attendance, leaves, and daily workflows. Built an Arabic RTL engine generating 5+ official PDF types, cutting manual admin effort by 65%, with 15+ relational models and RBAC managing 1,000+ personnel records.</p>
+        <div class="stack"><span class="tag">Django</span><span class="tag">PostgreSQL</span><span class="tag">Bootstrap</span></div>
+        <a href="https://drive.google.com/drive/folders/1Gi6VpGJRGhFnBK3JdKY6dEHnRErZ05bC" target="_blank" rel="noopener" class="card-link">View code →</a>
+      </div>
+      <div class="card">
+        <div class="card-icon">API</div>
+        <h3>Sporting Academy Management System</h3>
+        <p>An academy management system combining an Electron.js frontend with a DRF backend, delivering 20+ APIs and 10+ core modules. Engineered secure JWT APIs with search, filtering, and analytics, plus an export solution generating 10+ professional report formats.</p>
+        <div class="stack"><span class="tag">Electron.js</span><span class="tag">DRF</span><span class="tag">PostgreSQL</span><span class="tag">JWT</span></div>
+        <a>Production</a>
+      </div>
+      <div class="card">
+        <div class="card-icon">APP</div>
+        <h3>Sa3teenGd | Studying Helper</h3>
+        <p>Backend for a Flutter-based study app with to-do lists, task scheduling, file storage, and an audio player for 100+ users. Added group functionality with materials, posts, comments, and likes, increasing user retention by 15%, deployed on Azure.</p>
+        <div class="stack"><span class="tag">Django</span><span class="tag">DRF</span><span class="tag">JWT</span><span class="tag">Azure</span></div>
+        <a href="https://github.com/HeshamAbedelatty/GP_Backend" target="_blank" rel="noopener" class="card-link">View code →</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-                <!-- Project 3 -->
-                <div class="card">
-                    <div>
-                        <div class="card-title">Sa3teenGd | Studying Helper</div>
-                        <p class="card-text">A backend microservice for a Flutter mobile platform providing task schedules, secure repository buckets, and micro-community interactive forums. Increased target retention rates by 15% through optimal schema planning.</p>
-                    </div>
-                    <div>
-                        <div class="card-tags">
-                            <span class="tag">Django REST Framework</span>
-                            <span class="tag">JWT</span>
-                            <span class="tag">Azure</span>
-                        </div>
-                        <a href="https://github.com/HeshamAbedelatty/GP_Backend" target="_blank" rel="noopener" style="display:inline-block;margin-top:16px;color:var(--accent-gold);font-weight:600;font-size:0.9rem;">View code <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
+<section id="posts" class="posts">
+  <div class="wrap">
+    <div class="section-head" style="margin:0 auto 52px;text-align:center;">
+      <span class="section-tag" style="display:inline-flex;align-items:center;justify-content:center;gap:7px;width:100%;">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" style="width:14px;height:14px;display:block;">
+        linkedin.log
+      </span>
+      <h2 class="section-title">Thoughts, shipped in public</h2>
+      <p class="section-sub" style="margin-left:auto;margin-right:auto;">Notes on backend systems, automation, and things I've learned in production.</p>
+    </div>
 
+    <!--
+      HOW TO ADD OR EDIT A LINKEDIN POST
+      ===================================
+      Each post is one <a class="post-card"> block below. To add a new post,
+      copy one whole block (from <a class="post-card" to the closing </a>),
+      paste it right before </div> that closes .post-grid, and edit 3 things:
 
-            </div>
-        </div>
-    </section>
+        1. href="..."     -> paste the LinkedIn post URL here
+        2. <span class="post-date">...</span>  -> the month/year you posted it
+        3. <h3>...</h3>   -> the post's title (this is the "py title" bit —
+                              it's just the text inside the <h3> tag)
+        4. <p>...</p>     -> a one-line teaser/summary of what the post says
 
-    <!-- LinkedIn Posts Section -->
-    <section id="posts">
-        <div class="container">
-            <h2 class="section-title">LinkedIn Posts</h2>
-            <!--
-              HOW TO ADD OR EDIT A LINKEDIN POST
-              ===================================
-              Each post is one <a class="card"> block below. To add a new
-              post, copy one whole block and paste it before the closing
-              </div> of .grid-cards, then edit:
-                1. href="..."          -> the LinkedIn post URL
-                2. <span class="duration">...</span> -> month/year posted
-                3. <div class="card-title">...</div> -> the post's title
-                4. <p class="card-text">...</p>      -> a short teaser
-              To remove a post, delete its entire <a class="card">...</a> block.
-            -->
-            <div class="grid-cards">
-                <a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7489283491969306624/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BeQQ%2F6eBBQIKvciyPmBcusw%3D%3D" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
-                    <div>
-                        <span class="duration" style="display:inline-block;margin-bottom:12px;">Aug 2026</span>
-                        <div class="card-title">Cloud Functions vs Broker + Workers</div>
-                        <p class="card-text">A simple breakdown of Cloud Functions and Broker + Workers, explaining how they solve different problems and how they can work together.</p>
-                    </div>
-                    <span style="color:var(--accent-gold);font-weight:600;font-size:0.9rem;">Read on LinkedIn <i class="fa-solid fa-arrow-right"></i></span>
-                </a>
-                <a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7490108179582803968/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BeQQ%2F6eBBQIKvciyPmBcusw%3D%3D" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
-                    <div>
-                        <span class="duration" style="display:inline-block;margin-bottom:12px;">Aug 2026</span>
-                        <div class="card-title">Core Business Logic vs Cloud Functions</div>
-                        <p class="card-text">How to decide whether logic belongs in the core backend or should run as a separate Cloud Function or background task.</p>
-                    </div>
-                    <span style="color:var(--accent-gold);font-weight:600;font-size:0.9rem;">Read on LinkedIn <i class="fa-solid fa-arrow-right"></i></span>
-                </a>
-                <a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7483497466684854272/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BeQQ%2F6eBBQIKvciyPmBcusw%3D%3D" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
-                    <div>
-                        <span class="duration" style="display:inline-block;margin-bottom:12px;">Aug 2026</span>
-                        <div class="card-title">HTTP vs SSE vs WebSocket</div>
-                        <p class="card-text">A practical comparison of HTTP, SSE, and WebSocket, explaining when to use each approach for real-time features.</p>
-                    </div>
-                    <span style="color:var(--accent-gold);font-weight:600;font-size:0.9rem;">Read on LinkedIn <i class="fa-solid fa-arrow-right"></i></span>
-                </a>
-                <a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7483056132970913792/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
-                    <div>
-                        <span class="duration" style="display:inline-block;margin-bottom:12px;">Aug 2026</span>
-                        <div class="card-title">Cron Job vs Webhook</div>
-                        <p class="card-text">A simple comparison of Cron Jobs and Webhooks, explaining when to use scheduled tasks versus event-driven actions.</p>
-                    </div>
-                    <span style="color:var(--accent-gold);font-weight:600;font-size:0.9rem;">Read on LinkedIn <i class="fa-solid fa-arrow-right"></i></span>
-                </a>
-            </div>
-        </div>
-    </section>
+      To remove a post, delete its entire <a class="post-card">...</a> block.
+      Keep the number of cards to a multiple of 3 for the grid to look even,
+      though any number will still work.
+    -->
+    <div class="post-grid">
+      <a class="post-card" href="https://www.linkedin.com/feed/update/urn:li:activity:7489283491969306624/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BeQQ%2F6eBBQIKvciyPmBcusw%3D%3D" target="_blank" rel="noopener">
+        <span class="post-date">Aug 2026</span>
+        <h3>Cloud Functions vs Broker + Workers</h3>
+        <p>A simple breakdown of Cloud Functions and Broker + Workers, explaining how they solve different problems and how they can work together.</p>
+        <span class="post-link">Read on LinkedIn →</span>
+      </a>
+      <a class="post-card" href="https://www.linkedin.com/feed/update/urn:li:activity:7490108179582803968/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BeQQ%2F6eBBQIKvciyPmBcusw%3D%3D" target="_blank" rel="noopener">
+        <span class="post-date">Aug 2026</span>
+        <h3>Core Business Logic vs Cloud Functions</h3>
+        <p>How to decide whether logic belongs in the core backend or should run as a separate Cloud Function or background task.</p>
+        <span class="post-link">Read on LinkedIn →</span>
+      </a>
+      <a class="post-card" href="https://www.linkedin.com/feed/update/urn:li:activity:7483497466684854272/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BeQQ%2F6eBBQIKvciyPmBcusw%3D%3D" target="_blank" rel="noopener">
+        <span class="post-date">Aug 2026</span>
+        <h3>HTTP vs SSE vs WebSocket</h3>
+        <p>A practical comparison of HTTP, SSE, and WebSocket, explaining when to use each approach for real-time features.</p>
+        <span class="post-link">Read on LinkedIn →</span>
+      </a>
+      <a class="post-card" href="https://www.linkedin.com/feed/update/urn:li:activity:7483056132970913792/" target="_blank" rel="noopener">
+        <span class="post-date">Aug 2026</span>
+        <h3>Cron Job vs Webhook</h3>
+        <p>A simple comparison of Cron Jobs and Webhooks, explaining when to use scheduled tasks versus event-driven actions.</p>
+        <span class="post-link">Read on LinkedIn →</span>
+      </a>
+    </div>
+  </div>
+</section>
 
-    <!-- Technical Skills Section -->
-    <section id="skills">
-        <div class="container">
-            <h2 class="section-title">Technical Expertise</h2>
-            <div class="skills-container">
-                <div class="skill-category">
-                    <h3>Backend Frameworks</h3>
-                    <div class="skill-list">
-                        <span class="tag">Django</span>
-                        <span class="tag">Django REST Framework</span>
-                        <span class="tag">Flask</span>
-                        <span class="tag">Wagtail CMS</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>Databases & Caching</h3>
-                    <div class="skill-list">
-                        <span class="tag">PostgreSQL</span>
-                        <span class="tag">SQL Server</span>
-                        <span class="tag">MongoDB</span>
-                        <span class="tag">Redis</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>DevOps & Cloud</h3>
-                    <div class="skill-list">
-                        <span class="tag">Docker</span>
-                        <span class="tag">Azure Cloud</span>
-                        <span class="tag">GitLab CI/CD</span>
-                        <span class="tag">Linux VPS Deployment</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>Languages</h3>
-                    <div class="skill-list">
-                        <span class="tag">Python</span>
-                        <span class="tag">JavaScript</span>
-                        <span class="tag">HTML/CSS</span>
-                        <span class="tag">C++</span>
-                        <span class="tag">Java</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<footer id="contact">
+  <div class="wrap footer-inner">
+    <span class="section-tag">// contact</span>
+    <h2>Building something that <em>can't go down?</em><br>Let's talk.</h2>
+    <div class="contact-links">
+      <a href="mailto:heshamabdelatty21@gmail.com">heshamabdelatty21@gmail.com</a>
+      <a href="tel:+201065131189">+20 106 513 1189</a>
+      <a href="https://github.com/HeshamAbedelatty" target="_blank" rel="noopener">github.com/HeshamAbedelatty</a>
+      <a href="https://gitlab.com/HeshamAbedelatty" target="_blank" rel="noopener">gitlab.com/HeshamAbedelatty</a>
+      <a href="https://www.linkedin.com/in/heshamahmedabdelatty/" target="_blank" rel="noopener">linkedin.com/in/heshamahmedabdelatty</a>
+    </div>
+    <div class="foot-bottom">
+      <div class="foot-brand"><img class="nav-logo" src="https://res.cloudinary.com/dnkuwemxn/image/upload/v1784559494/logo_riydzz.png" alt="Hesham Ahmed logo"> Hesham Ahmed Abdelatty — Backend Engineer</div>
+      <span>© 2026. Cairo, Egypt.</span>
+    </div>
+  </div>
+</footer>
 
-    <!-- Education Section -->
-    <section id="education">
-        <div class="container">
-            <h2 class="section-title">Education & Credentials</h2>
-            <div class="grid-cards" style="grid-template-columns: 1fr;">
-                <div class="card" style="flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-                    <div>
-                        <h3 style="font-size: 1.2rem; margin-bottom: 5px;">Bachelor of Computer Science</h3>
-                        <p style="color: var(--accent-gold); font-weight: 500;">Cairo University</p>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 5px;">Relevant Work: Data Structures, Advanced Software Engineering, Database Schema Optimizations</p>
-                    </div>
-                    <div style="text-align: right;">
-                        <span class="duration" style="display: inline-block; margin-bottom: 5px;">Graduated July 2024</span>
-                        <div style="font-weight: 600; color: var(--text-primary);">GPA: 3.38 / 4.0</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" style="background-color: var(--bg-secondary);">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 40px; font-size: 1.1rem;">
-                Looking for a robust backend system developer or automation specialist? Let's connect!
-            </p>
-            <div class="contact-info">
-                <a href="mailto:heshamabdelatty21@gmail.com" class="contact-item">
-                    <i class="fa-solid fa-envelope"></i> heshamabdelatty21@gmail.com
-                </a>
-                <a href="tel:+201065131189" class="contact-item">
-                    <i class="fa-solid fa-phone"></i> +201065131189
-                </a>
-                <a href="https://github.com/Hesham-Abedelatty" target="_blank" class="contact-item">
-                    <i class="fa-brands fa-github"></i> GitHub
-                </a>
-                <a href="https://gitlab.com/HeshamAbedelatty" target="_blank" class="contact-item">
-                    <i class="fa-brands fa-gitlab"></i> GitLab
-                </a>
-                <a href="https://www.linkedin.com/in/heshamahmedabdelatty/" target="_blank" class="contact-item">
-                    <i class="fa-brands fa-linkedin"></i> LinkedIn
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Hesham Ahmed Abdelatty. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Theme Control JavaScript Switcher -->
-    <script>
-        const themeBtn = document.getElementById('themeBtn');
-        const htmlDoc = document.documentElement;
-
-        themeBtn.addEventListener('click', () => {
-            const currentTheme = htmlDoc.getAttribute('data-theme');
-            let newTheme = 'dark';
-            
-            if (currentTheme === 'dark') {
-                newTheme = 'light';
-                themeBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
-            } else {
-                newTheme = 'dark';
-                themeBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
-            }
-            
-            htmlDoc.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        });
-
-        // Retain user choice on page refreshes
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            htmlDoc.setAttribute('data-theme', savedTheme);
-            if(savedTheme === 'light') {
-                themeBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
-            }
-        }
-    </script>
 </body>
 </html>

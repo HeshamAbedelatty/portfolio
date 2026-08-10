@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesham Ahmed | Backend Engineer</title>
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dnkuwemxn/image/upload/v1784559494/logo_riydzz.png">
+    <meta name="description" content="Hesham Ahmed Abdelatty — Backend Engineer specializing in Django, DRF, PostgreSQL, and workflow automation.">
+    <!--
+      SOCIAL PREVIEW (Open Graph / Twitter) — pre-filled assuming you deploy
+      to https://heshamabedelatty.github.io/ per your repo name. If you use
+      a different repo/URL, update og:url, og:image, and twitter:image below.
+    -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Hesham Ahmed — Backend Engineer">
+    <meta property="og:description" content="Backend Engineer with 2+ years building scalable APIs, databases, and automation workflows with Django, PostgreSQL, and Docker.">
+    <meta property="og:image" content="https://heshamabedelatty.github.io/personal_photo.png">
+    <meta property="og:url" content="https://heshamabedelatty.github.io/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hesham Ahmed — Backend Engineer">
+    <meta name="twitter:description" content="Backend Engineer with 2+ years building scalable APIs, databases, and automation workflows with Django, PostgreSQL, and Docker.">
+    <meta name="twitter:image" content="https://heshamabedelatty.github.io/personal_photo.png">
+    <!-- Google Fonts & FontAwesome for Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* Dark Theme Colors (Default) */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-gold: #c5a059;
+            --accent-navy: #38bdf8;
+            --border-color: #334155;
+            --shadow: linear-gradient(145deg, #1e293b, #0f172a);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] {
+            /* Light Theme Colors */
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --accent-gold: #b38f43;
+            --accent-navy: #1e40af;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: var(--transition);
+            line-height: 1.6;
+        }
+
+        /* Container styling */
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        [data-theme="light"] header {
+            background-color: rgba(248, 250, 252, 0.8);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .brand img {
+            height: 40px;
+            width: 40px;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 5px;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 160px 0 100px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-title h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .hero-title span {
+            color: var(--accent-gold);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .hero-description {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            max-width: 600px;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-image img {
+            max-width: 380px;
+            width: 100%;
+            border-radius: 50%;
+            border: 4px solid var(--accent-gold);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-gold);
+            color: #0f172a !important;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            margin-left: 15px;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-secondary);
+            border-color: var(--accent-gold);
+        }
+
+        /* Sections General */
+        section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-gold);
+        }
+
+        /* Experience & Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            padding: 20px 30px;
+            position: relative;
+            background-color: var(--bg-secondary);
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--accent-gold);
+            box-shadow: var(--shadow);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .role-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .company {
+            color: var(--accent-gold);
+            font-weight: 500;
+        }
+
+        .duration {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            background-color: var(--bg-primary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .timeline-body ul {
+            list-style-type: none;
+        }
+
+        .timeline-body li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+        }
+
+        .timeline-body li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+        }
+
+        /* Grid Layouts (Projects & Skills) */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-gold);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .card-text {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            font-size: 0.8rem;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-category {
+            background-color: var(--bg-secondary);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .skill-category h3 {
+            color: var(--accent-gold);
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        /* Contact & Footer */
+        .contact-info {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-item:hover {
+            color: var(--accent-gold);
+        }
+
+        .contact-item i {
+            color: var(--accent-gold);
+            font-size: 1.4rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                padding-top: 120px;
+            }
+            .hero-description {
+                margin: 0 auto 30px auto;
+            }
+            .hero-image img {
+                max-width: 260px;
+            }
+            .nav-links {
+                display: none; /* Simplification for code brevity; handles mobile fallback */
+            }
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+            .timeline-header {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header>
+        <div class="container nav">
+            <a href="#" class="brand">
+                <img src="https://res.cloudinary.com/dnkuwemxn/image/upload/v1784559494/logo_riydzz.png" alt="HA Logo">
+                <span>Hesham Ahmed</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#posts">Posts</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li>
+                    <button class="theme-toggle" id="themeBtn" aria-label="Toggle Theme">
+                        <i class="fa-solid fa-sun"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero / Introduction Section -->
+    <section class="container hero">
+        <div class="hero-content">
+            <p class="hero-subtitle">Hello, I'm</p>
+            <div class="hero-title">
+                <h1>Hesham Ahmed <span>Abdelatty</span></h1>
+            </div>
+            <div class="hero-subtitle" style="color: var(--accent-gold);">Backend Engineer</div>
+            <p class="hero-description">
+                Specialized in building and deploying scalable web applications, automation architectures, and enterprise management systems. Expert in translating complex workflow demands into high-performance, containerized realities.
+            </p>
+            <div>
+                <a href="#contact" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Contact Me</a>
+                <a href="#projects" class="btn btn-secondary">View Work</a>
+                <a href="Hesham_Ahmed_Resume.pdf" class="btn btn-secondary" download><i class="fa-solid fa-download"></i> Résumé</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="personal_photo.png" alt="Hesham Ahmed">
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">Professional Summary</h2>
+            <p class="hero-description" style="max-width: 100%; font-size: 1.1rem;">
+                Backend Engineer with 2+ years of experience constructing production-grade infrastructures using Django, Django REST Framework (DRF), PostgreSQL, and Docker. Highly skilled in REST API performance tracking, schema design, and operational workflow automations via tools like n8n and CRM systems. Driven by software reliability, query optimization, and technical sustainability.
+            </p>
+        </div>
+    </section>
+
+    <!-- Professional Experience Section -->
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title">Work Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div>
+                            <div class="role-title">Backend Developer</div>
+                            <div class="company">AppGain.io</div>
+                        </div>
+                        <span class="duration">Jun 2024 - Present</span>
+                    </div>
+                    <div class="timeline-body">
+                        <ul>
+                            <li>Developed and sustained enterprise backend systems and REST APIs leveraging Python and Docker components.</li>
+                            <li>Monitored high-traffic production logs to analyze exceptions, accelerating bug tracking and platform stability.</li>
+                            <li>Engineered automated workflows integrating n8n mechanisms with the WhatsApp Meta API and internal cloud frameworks.</li>
+                            <li>Built complex web scraping pipelines dealing with over 8GB of multi-platform structural metrics parsed to JSON environments.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <!--
+              PROJECT REPO LINKS
+              ===================
+              Each card ends with a "View code" link. Replace
+              PASTE_REPO_URL_HERE with the actual GitHub/GitLab URL for
+              that project. If a repo is private, delete that <a> line.
+            -->
+            <div class="grid-cards">
+                
+                <!-- Project 1 -->
+                <div class="card">
+                    <div>
+                        <div class="card-title">Military Officers Affairs System</div>
+                        <p class="card-text">Central personnel optimization network serving 600+ personnel. Automates scheduling matrices and tasks. Features an custom Arabic RTL engine converting programmatic tables to formal compliant PDFs, mitigating manual verification metrics by 65%.</p>
+                    </div>
+                    <div>
+                        <div class="card-tags">
+                            <span class="tag">Django</span>
+                            <span class="tag">PostgreSQL</span>
+                            <span class="tag">Bootstrap</span>
+                            <span class="tag">Azure</span>
+                        </div>
+                        <div style="display:inline-block;margin-top:16px;color:var(--accent-gold);font-weight:600;font-size:0.9rem;">Production</div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="card">
+                    <div>
+                        <div class="card-title">Sporting Academy Management System</div>
+                        <p class="card-text">Desktop framework orchestrating Electron assets seamlessly with a remote, isolated DRF architecture processing thousands of concurrent user tables. Features robust permission policies and comprehensive data filtering engines.</p>
+                    </div>
+                    <div>
+                        <div class="card-tags">
+                            <span class="tag">Electron.js</span>
+                            <span class="tag">DRF</span>
+                            <span class="tag">PostgreSQL</span>
+                            <span class="tag">Docker</span>
+                        </div>
+                        <div style="display:inline-block;margin-top:16px;color:var(--accent-gold);font-weight:600;font-size:0.9rem;">Production</div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="card">
+                    <div>
+                        <div class="card-title">Sa3teenGd | Studying Helper</div>
+                        <p class="card-text">A backend microservice for a Flutter mobile platform providing task schedules, secure repository buckets, and micro-community interactive forums. Increased target retention rates by 15% through optimal schema planning.</p>
+                    </div>
+                    <div>
+                        <div class="card-tags">
+                            <span class="tag">Django REST Framework</span>
+                            <span class="tag">JWT</span>
+                            <span class="tag">Azure</span>
+                        </div>
+                        <a href="https://github.com/HeshamAbedelatty/GP_Backend" target="_blank" rel="noopener" style="display:inline-block;margin-top:16px;color:var(--accent-gold);font-weight:600;font-size:0.9rem;">View code <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- LinkedIn Posts Section -->
+    <section id="posts">
+        <div class="container">
+            <h2 class="section-title">LinkedIn Posts</h2>
+            <!--
+              HOW TO ADD OR EDIT A LINKEDIN POST
+              ===================================
+              Each post is one <a class="card"> block below. To add a new
+              post, copy one whole block and paste it before the closing
+              </div> of .grid-cards, then edit:
+                1. href="..."          -> the LinkedIn post URL
+                2. <span class="duration">...</span> -> month/year posted
+                3. <div class="card-title">...</div> -> the post's title
+                4. <p class="card-text">...</p>      -> a short teaser
+              To remove a post, delete its entire <a class="card">...</a> block.
+            -->
+            <div class="grid-cards">
+                <a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7489283491969306624/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BeQQ%2F6eBBQIKvciyPmBcusw%3D%3D" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
+                    <div>
+                        <span class="duration" style="display:inline-block;margin-bottom:12px;">Aug 2026</span>
+                        <div class="card-title">Cloud Functions vs Broker + Workers</div>
+                        <p class="card-text">A simple breakdown of Cloud Functions and Broker + Workers, explaining how they solve different problems and how they can work together.</p>
+                    </div>
+                    <span style="color:var(--accent-gold);font-weight:600;font-size:0.9rem;">Read on LinkedIn <i class="fa-solid fa-arrow-right"></i></span>
+                </a>
+                <a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7490108179582803968/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BeQQ%2F6eBBQIKvciyPmBcusw%3D%3D" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
+                    <div>
+                        <span class="duration" style="display:inline-block;margin-bottom:12px;">Aug 2026</span>
+                        <div class="card-title">Core Business Logic vs Cloud Functions</div>
+                        <p class="card-text">How to decide whether logic belongs in the core backend or should run as a separate Cloud Function or background task.</p>
+                    </div>
+                    <span style="color:var(--accent-gold);font-weight:600;font-size:0.9rem;">Read on LinkedIn <i class="fa-solid fa-arrow-right"></i></span>
+                </a>
+                <a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7483497466684854272/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BeQQ%2F6eBBQIKvciyPmBcusw%3D%3D" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
+                    <div>
+                        <span class="duration" style="display:inline-block;margin-bottom:12px;">Aug 2026</span>
+                        <div class="card-title">HTTP vs SSE vs WebSocket</div>
+                        <p class="card-text">A practical comparison of HTTP, SSE, and WebSocket, explaining when to use each approach for real-time features.</p>
+                    </div>
+                    <span style="color:var(--accent-gold);font-weight:600;font-size:0.9rem;">Read on LinkedIn <i class="fa-solid fa-arrow-right"></i></span>
+                </a>
+                <a class="card" href="https://www.linkedin.com/feed/update/urn:li:activity:7483056132970913792/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
+                    <div>
+                        <span class="duration" style="display:inline-block;margin-bottom:12px;">Aug 2026</span>
+                        <div class="card-title">Cron Job vs Webhook</div>
+                        <p class="card-text">A simple comparison of Cron Jobs and Webhooks, explaining when to use scheduled tasks versus event-driven actions.</p>
+                    </div>
+                    <span style="color:var(--accent-gold);font-weight:600;font-size:0.9rem;">Read on LinkedIn <i class="fa-solid fa-arrow-right"></i></span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">Technical Expertise</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3>Backend Frameworks</h3>
+                    <div class="skill-list">
+                        <span class="tag">Django</span>
+                        <span class="tag">Django REST Framework</span>
+                        <span class="tag">Flask</span>
+                        <span class="tag">Wagtail CMS</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Databases & Caching</h3>
+                    <div class="skill-list">
+                        <span class="tag">PostgreSQL</span>
+                        <span class="tag">SQL Server</span>
+                        <span class="tag">MongoDB</span>
+                        <span class="tag">Redis</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>DevOps & Cloud</h3>
+                    <div class="skill-list">
+                        <span class="tag">Docker</span>
+                        <span class="tag">Azure Cloud</span>
+                        <span class="tag">GitLab CI/CD</span>
+                        <span class="tag">Linux VPS Deployment</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <div class="skill-list">
+                        <span class="tag">Python</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">HTML/CSS</span>
+                        <span class="tag">C++</span>
+                        <span class="tag">Java</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+        <div class="container">
+            <h2 class="section-title">Education & Credentials</h2>
+            <div class="grid-cards" style="grid-template-columns: 1fr;">
+                <div class="card" style="flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                    <div>
+                        <h3 style="font-size: 1.2rem; margin-bottom: 5px;">Bachelor of Computer Science</h3>
+                        <p style="color: var(--accent-gold); font-weight: 500;">Cairo University</p>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 5px;">Relevant Work: Data Structures, Advanced Software Engineering, Database Schema Optimizations</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="duration" style="display: inline-block; margin-bottom: 5px;">Graduated July 2024</span>
+                        <div style="font-weight: 600; color: var(--text-primary);">GPA: 3.38 / 4.0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" style="background-color: var(--bg-secondary);">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 40px; font-size: 1.1rem;">
+                Looking for a robust backend system developer or automation specialist? Let's connect!
+            </p>
+            <div class="contact-info">
+                <a href="mailto:heshamabdelatty21@gmail.com" class="contact-item">
+                    <i class="fa-solid fa-envelope"></i> heshamabdelatty21@gmail.com
+                </a>
+                <a href="tel:+201065131189" class="contact-item">
+                    <i class="fa-solid fa-phone"></i> +201065131189
+                </a>
+                <a href="https://github.com/Hesham-Abedelatty" target="_blank" class="contact-item">
+                    <i class="fa-brands fa-github"></i> GitHub
+                </a>
+                <a href="https://gitlab.com/HeshamAbedelatty" target="_blank" class="contact-item">
+                    <i class="fa-brands fa-gitlab"></i> GitLab
+                </a>
+                <a href="https://www.linkedin.com/in/heshamahmedabdelatty/" target="_blank" class="contact-item">
+                    <i class="fa-brands fa-linkedin"></i> LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Hesham Ahmed Abdelatty. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Theme Control JavaScript Switcher -->
+    <script>
+        const themeBtn = document.getElementById('themeBtn');
+        const htmlDoc = document.documentElement;
+
+        themeBtn.addEventListener('click', () => {
+            const currentTheme = htmlDoc.getAttribute('data-theme');
+            let newTheme = 'dark';
+            
+            if (currentTheme === 'dark') {
+                newTheme = 'light';
+                themeBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+            } else {
+                newTheme = 'dark';
+                themeBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+            }
+            
+            htmlDoc.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Retain user choice on page refreshes
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            htmlDoc.setAttribute('data-theme', savedTheme);
+            if(savedTheme === 'light') {
+                themeBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+            }
+        }
+    </script>
+</body>
+</html>
