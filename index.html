@@ -62,6 +62,24 @@
     }
     document.documentElement.setAttribute('data-theme', t);
     document.documentElement.classList.add('js');
+
+    // Language: ?lang=ar|en in the URL wins, then the saved choice, otherwise English
+    var l = null;
+    try { l = localStorage.getItem('lang'); } catch (e) {}
+    var q = /[?&]lang=(ar|en)\b/.exec(location.search);
+    if (q) l = q[1];
+    window.loadArFonts = function () {
+      if (document.getElementById('ar-fonts')) return;
+      var k = document.createElement('link');
+      k.id = 'ar-fonts'; k.rel = 'stylesheet';
+      k.href = 'https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap';
+      document.head.appendChild(k);
+    };
+    if (l === 'ar') {
+      document.documentElement.lang = 'ar';
+      document.documentElement.dir = 'rtl';
+      window.loadArFonts();
+    }
   })();
 </script>
 
@@ -124,7 +142,7 @@
   section[id],footer[id]{scroll-margin-top:72px;}
 
   .skip-link{
-    position:absolute;top:-48px;left:0;background:var(--navy);color:var(--cream);
+    position:absolute;top:-48px;inset-inline-start:0;background:var(--navy);color:var(--cream);
     padding:10px 18px;z-index:9999;transition:top .2s;font-size:.9rem;
   }
   .skip-link:focus{top:0;}
@@ -133,7 +151,7 @@
   /* scroll progress + back to top */
   .progress{position:fixed;top:0;left:0;right:0;height:3px;background:var(--gold);transform-origin:left;transform:scaleX(0);z-index:200;pointer-events:none;}
   .to-top{
-    position:fixed;right:20px;bottom:20px;width:44px;height:44px;border-radius:50%;
+    position:fixed;inset-inline-end:20px;bottom:20px;width:44px;height:44px;border-radius:50%;
     background:var(--btn-bg);color:var(--btn-fg);border:none;cursor:pointer;
     display:flex;align-items:center;justify-content:center;
     box-shadow:0 10px 24px -8px rgba(0,0,0,.5);
@@ -155,7 +173,7 @@
   }
   .nav-brand{display:flex;align-items:center;gap:12px;font-family:var(--serif);font-weight:600;font-size:1.1rem;color:var(--head);}
   .nav-logo{width:34px;height:34px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1px solid var(--line);}
-  nav.links{display:flex;gap:30px;font-size:.88rem;font-weight:500;margin-left:auto;}
+  nav.links{display:flex;gap:30px;font-size:.88rem;font-weight:500;margin-inline-start:auto;}
   nav.links a{color:var(--muted);transition:color .2s;position:relative;padding:4px 0;}
   nav.links a:hover,nav.links a.active{color:var(--head);}
   nav.links a.active::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--gold);}
@@ -172,6 +190,11 @@
   .theme-toggle:hover{border-color:var(--gold);background:var(--card);}
   .theme-toggle svg{width:18px;height:18px;}
   .theme-toggle .sun{display:none;}
+  .lang-toggle{
+    height:38px;padding:0 14px;border-radius:19px;background:transparent;border:1px solid var(--line);
+    color:var(--head);cursor:pointer;font:600 .82rem var(--sans);transition:border-color .2s,background .2s;
+  }
+  .lang-toggle:hover{border-color:var(--gold);background:var(--card);}
   :root[data-theme="dark"] .theme-toggle .sun{display:block;}
   :root[data-theme="dark"] .theme-toggle .moon{display:none;}
   .burger{display:none;background:none;border:none;cursor:pointer;color:var(--head);padding:8px;font-size:1.4rem;line-height:1;}
@@ -225,7 +248,7 @@
     margin-top:36px;padding-top:24px;border-top:1px solid rgba(241,236,223,.18);
     display:flex;flex-wrap:wrap;gap:10px 32px;font-size:.88rem;color:rgba(241,236,223,.75);
   }
-  .hero-meta li strong{color:var(--gold-light);font-weight:600;margin-right:6px;}
+  .hero-meta li strong{color:var(--gold-light);font-weight:600;margin-inline-end:6px;}
   .hero-portrait{display:flex;justify-content:center;}
   .portrait-frame{position:relative;width:100%;max-width:340px;}
   .portrait-frame::before{
@@ -290,16 +313,16 @@
   .tl-org{color:var(--muted);font-size:.95rem;font-weight:500;margin-top:2px;}
   .tl-impact{
     margin-top:14px;max-width:68ch;padding:10px 16px;font-size:.93rem;color:var(--head);
-    background:rgba(184,145,42,.12);border-left:3px solid var(--gold);border-radius:0 var(--radius) var(--radius) 0;
+    background:rgba(184,145,42,.12);border-inline-start:3px solid var(--gold);border-start-end-radius:var(--radius);border-end-end-radius:var(--radius);
   }
   .tl-impact strong{color:var(--gold-text);font-weight:700;margin-right:4px;}
   .tl-list{margin-top:14px;display:flex;flex-direction:column;gap:9px;max-width:68ch;}
-  .tl-list li{color:var(--muted);font-size:.96rem;padding-left:20px;position:relative;}
-  .tl-list li::before{content:'';position:absolute;left:0;top:.72em;width:7px;height:2px;background:var(--gold);}
+  .tl-list li{color:var(--muted);font-size:.96rem;padding-inline-start:20px;position:relative;}
+  .tl-list li::before{content:'';position:absolute;inset-inline-start:0;top:.72em;width:7px;height:2px;background:var(--gold);}
   .sub-block{margin-top:72px;}
   .sub-title{font-family:var(--serif);font-size:1.5rem;font-weight:700;color:var(--head);margin-bottom:28px;}
   .edu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
-  .edu-card{background:var(--bg-alt);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:var(--radius);padding:26px;}
+  .edu-card{background:var(--bg-alt);border:1px solid var(--line);border-inline-start:3px solid var(--gold);border-radius:var(--radius);padding:26px;}
   .edu-card .tl-date{display:block;margin-bottom:6px;}
   .edu-card p{color:var(--muted);font-size:.93rem;margin-top:10px;}
 
@@ -348,7 +371,7 @@
   .case{margin-top:18px;border-top:1px solid var(--line);padding-top:14px;}
   .case summary{cursor:pointer;font-size:.88rem;font-weight:600;color:var(--head);list-style:none;display:flex;align-items:center;gap:8px;}
   .case summary::-webkit-details-marker{display:none;}
-  .case summary::after{content:'+';font-size:1.1rem;color:var(--gold-text);margin-left:auto;transition:transform .2s;}
+  .case summary::after{content:'+';font-size:1.1rem;color:var(--gold-text);margin-inline-start:auto;transition:transform .2s;}
   .case[open] summary::after{content:'−';}
   .case dl{margin-top:14px;display:flex;flex-direction:column;gap:12px;}
   .case dt{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);}
@@ -369,7 +392,7 @@
   }
   .video-card:hover{transform:translateY(-3px);border-color:var(--gold-light);box-shadow:0 24px 40px -24px rgba(0,0,0,.6);}
   .video-badge{
-    position:absolute;top:12px;left:12px;z-index:2;font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    position:absolute;top:12px;inset-inline-start:12px;z-index:2;font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
     color:var(--on-gold);background:var(--gold-light);padding:4px 10px;border-radius:2px;
   }
   .video-thumb{position:relative;aspect-ratio:16/9;background:var(--navy-2);overflow:hidden;}
@@ -391,7 +414,7 @@
 
   /* ---------- RECOMMENDATIONS (see template comment in the HTML; hidden until a real quote is added) ---------- */
   .quote-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;}
-  .quote{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:var(--radius);padding:30px;}
+  .quote{background:var(--card);border:1px solid var(--line);border-inline-start:3px solid var(--gold);border-radius:var(--radius);padding:30px;}
   .quote blockquote{font-family:var(--serif);font-size:1.12rem;line-height:1.55;color:var(--head);}
   .quote figcaption{margin-top:18px;font-size:.88rem;color:var(--muted);}
   .quote figcaption strong{display:block;color:var(--head);font-weight:600;}
@@ -423,7 +446,7 @@
   }
   a.contact-item:hover{border-color:var(--gold-light);background:rgba(241,236,223,.05);}
   .contact-label{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--gold-light);}
-  .contact-value{font-size:.95rem;color:var(--cream);word-break:break-word;}
+  .contact-value{font-size:.95rem;color:var(--cream);word-break:break-word;direction:ltr;unicode-bidi:isolate;text-align:start;}
   .copy-email-btn{
     margin-top:8px;align-self:flex-start;font-family:inherit;font-size:.78rem;font-weight:600;
     background:transparent;border:1px solid rgba(241,236,223,.35);color:var(--cream);
@@ -447,7 +470,7 @@
     .wrap,.nav-inner{padding-left:20px;padding-right:20px;}
     .mobile-menu{padding-left:20px;padding-right:20px;}
     nav.links,.nav-cta{display:none;}
-    .nav-actions{margin-left:auto;}
+    .nav-actions{margin-inline-start:auto;}
     .burger{display:block;}
     section{padding:72px 0;}
     .hero{padding:120px 0 64px;}
@@ -473,6 +496,28 @@
     *{transition:none !important;}
   }
 
+
+  /* ---------- ARABIC / RTL ---------- */
+  :root[lang="ar"]{
+    --serif:'Cairo','Noto Naskh Arabic',Tahoma,sans-serif;
+    --sans:'IBM Plex Sans Arabic','Cairo',Tahoma,system-ui,sans-serif;
+  }
+  :root[lang="ar"] body{font-size:17px;line-height:1.9;}
+  :root[lang="ar"] *{letter-spacing:0 !important;}               /* letter-spacing breaks Arabic joining */
+  :root[lang="ar"] h1.name{font-size:clamp(2.2rem,4.4vw,3.2rem);line-height:1.35;}
+  :root[lang="ar"] h2.section-title,:root[lang="ar"] .sub-title,:root[lang="ar"] .contact-head h2{line-height:1.45;}
+  :root[lang="ar"] h3,:root[lang="ar"] .tl-role{line-height:1.5;}
+  :root[lang="ar"] .eyebrow,:root[lang="ar"] .section-tag,:root[lang="ar"] .card-label,:root[lang="ar"] .post-date,
+  :root[lang="ar"] .video-date,:root[lang="ar"] .contact-label,:root[lang="ar"] .tl-badge,:root[lang="ar"] .video-badge,
+  :root[lang="ar"] .profile-card dt,:root[lang="ar"] .case dt,:root[lang="ar"] .tech-strip h3{text-transform:none;font-size:.9rem;}
+  :root[lang="ar"] .card-note{font-style:normal;}
+  :root[lang="ar"] .tag,:root[lang="ar"] .tech-list li{font-size:.85rem;}
+  [dir="rtl"] .progress{transform-origin:right;}
+  [dir="rtl"] .portrait-frame::before{inset:18px 18px -18px -18px;}
+  @media (max-width:860px){
+    [dir="rtl"] .portrait-frame::before{inset:14px 14px -14px -14px;}
+  }
+
   @media print{
     header.site-nav,.hero-actions,.videos-cta,.copy-email-btn,.burger,.progress,.to-top,.theme-toggle{display:none !important;}
     .hero{padding-top:32px;}
@@ -488,7 +533,7 @@
 
 <header class="site-nav">
   <div class="nav-inner">
-    <a href="#top" class="nav-brand"><img class="nav-logo" src="https://res.cloudinary.com/dnkuwemxn/image/upload/f_auto,q_auto,w_96/v1784559494/logo_riydzz.png" alt="Hesham Ahmed logo" width="34" height="34"> Hesham Ahmed</a>
+    <a href="#top" class="nav-brand"><img class="nav-logo" src="https://res.cloudinary.com/dnkuwemxn/image/upload/f_auto,q_auto,w_96/v1784559494/logo_riydzz.png" alt="Hesham Ahmed logo" width="34" height="34"> <span>Hesham Ahmed</span></a>
     <nav class="links" aria-label="Primary">
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
@@ -498,6 +543,7 @@
       <a href="#writing">Writing</a>
     </nav>
     <div class="nav-actions">
+      <button class="lang-toggle" id="lang-toggle" type="button" lang="ar" aria-label="Switch to Arabic">عربي</button>
       <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme">
         <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
         <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
@@ -571,9 +617,9 @@
       </aside>
     </div>
     <div class="stat-row">
-      <div class="stat reveal"><b>2+</b><span>Years of professional engineering experience</span></div>
-      <div class="stat reveal"><b>65%</b><span>Reduction in manual administrative effort through the Military Officers system</span></div>
-      <div class="stat reveal"><b>600+</b><span>Officers managed by a system I built</span></div>
+      <div class="stat reveal"><b dir="ltr">2+</b><span>Years of professional engineering experience</span></div>
+      <div class="stat reveal"><b dir="ltr">65%</b><span>Reduction in manual administrative effort through the Military Officers system</span></div>
+      <div class="stat reveal"><b dir="ltr">600+</b><span>Officers managed by a system I built</span></div>
     </div>
     <div class="tech-strip">
       <h3>Technologies I use day to day</h3>
@@ -938,8 +984,8 @@
       </a>
     </div>
     <div class="foot-bottom">
-      <div class="foot-brand"><img class="nav-logo" src="https://res.cloudinary.com/dnkuwemxn/image/upload/f_auto,q_auto,w_96/v1784559494/logo_riydzz.png" alt="" width="28" height="28" loading="lazy"> Hesham Ahmed Abdelatty — Full-Stack & Automation Engineer</div>
-      <span>© 2026 Hesham Ahmed Abdelatty · Cairo, Egypt · Last updated <span id="last-updated">November 2026</span></span>
+      <div class="foot-brand"><img class="nav-logo" src="https://res.cloudinary.com/dnkuwemxn/image/upload/f_auto,q_auto,w_96/v1784559494/logo_riydzz.png" alt="" width="28" height="28" loading="lazy"> <span>Hesham Ahmed Abdelatty — Full-Stack &amp; Automation Engineer</span></div>
+      <span class="foot-meta"><span>© 2026 Hesham Ahmed Abdelatty · Cairo, Egypt</span> · <span>Last updated</span> <span id="last-updated">November 2026</span></span>
     </div>
   </div>
 </footer>
@@ -952,12 +998,170 @@
   const $ = (s, r = document) => r.querySelector(s);
   const root = document.documentElement;
 
+  // Current language and translation helper (dictionary is defined further down)
+  let LANG = root.lang === 'ar' ? 'ar' : 'en';
+
+  // Arabic translations. Each key is the exact English text (inner HTML) of an element on the page.
+  // Edit a value to change the Arabic wording. If you change an English sentence in the HTML, update its key
+  // here too, otherwise that element simply stays in English in Arabic mode.
+  const AR = {
+    "Hesham Ahmed Abdelatty — Full-Stack & Automation Engineer": "هشام أحمد عبد العاطي — مهندس Full-Stack وأتمتة العمليات",
+    "Hesham Ahmed Abdelatty — Full-Stack & Automation Engineer specializing in Python, Django/Flask, Node.js, PostgreSQL, and n8n automation workflows.": "هشام أحمد عبد العاطي — مهندس Full-Stack وأتمتة العمليات متخصص في Python وDjango/Flask وNode.js وPostgreSQL وسير عمل n8n.",
+    "Skip to content": "انتقل إلى المحتوى",
+    "Primary": "التنقل الرئيسي",
+    "Toggle menu": "تبديل القائمة",
+    "Back to top": "العودة للأعلى",
+    "Profile summary": "ملخص الملف الشخصي",
+    "Switch to dark theme": "التبديل إلى الوضع الداكن",
+    "Switch to light theme": "التبديل إلى الوضع الفاتح",
+    "Hesham Ahmed logo": "شعار هشام أحمد",
+    "Portrait of Hesham Ahmed Abdelatty": "صورة شخصية لهشام أحمد عبد العاطي",
+    "Sales Automation with AppGain video thumbnail": "الصورة المصغّرة لفيديو أتمتة المبيعات مع AppGain",
+    "Travel Tech Solutions video thumbnail": "الصورة المصغّرة لفيديو حلول تقنية للسفر والسياحة",
+    "AI Agents for CRM video thumbnail": "الصورة المصغّرة لفيديو وكلاء الذكاء الاصطناعي لـ CRM",
+    "Hesham Ahmed": "هشام أحمد",
+    "About": "نبذة عني",
+    "Experience": "الخبرات",
+    "Skills": "المهارات",
+    "Projects": "المشاريع",
+    "Videos": "الفيديوهات",
+    "Writing": "كتابات",
+    "Contact": "تواصل معي",
+    "Backend · Full-Stack · Automation": "تطوير الخلفيات · Full-Stack · الأتمتة",
+    "Hesham Ahmed Abdelatty": "هشام أحمد عبد العاطي",
+    "Full-Stack &amp; Automation Engineer": "مهندس Full-Stack وأتمتة العمليات",
+    "Over two years of experience designing and delivering <strong>web applications, REST APIs, and automation workflows</strong> with Python, Node.js, PostgreSQL, and n8n, translating complex business requirements into reliable, production-ready software.": "خبرة تتجاوز عامين في تصميم وتسليم <strong>تطبيقات الويب وواجهات REST البرمجية (APIs) وسير عمل الأتمتة</strong> باستخدام Python وNode.js وPostgreSQL وn8n، مع تحويل متطلبات الأعمال المعقدة إلى برمجيات موثوقة وجاهزة للإنتاج.",
+    "View Projects": "استعرض المشاريع",
+    "Download Résumé": "تحميل السيرة الذاتية",
+    "<strong>Location</strong>Cairo, Egypt": "<strong>الموقع</strong>القاهرة، مصر",
+    "<strong>Current</strong>AppGain.io": "<strong>الحالي</strong>AppGain.io",
+    "<strong>Education</strong>B.Sc. Computer Science, Cairo University": "<strong>التعليم</strong>بكالوريوس علوم الحاسب، جامعة القاهرة",
+    "Professional Profile": "الملف المهني",
+    "I am a <strong>Full-Stack &amp; Automation Engineer</strong> with more than two years of experience building and deploying web applications and enterprise systems for real clients. I replaced a paper-based process for 600+ officers with a digital system, reducing manual administrative effort by 65%. My work spans Python, Node.js, PostgreSQL, and n8n automation workflows.": "أنا <strong>مهندس Full-Stack وأتمتة العمليات</strong> بخبرة تزيد على عامين في بناء ونشر تطبيقات الويب وأنظمة المؤسسات لصالح عملاء حقيقيين. استبدلتُ عملية ورقية تخدم أكثر من 600 ضابط بنظام رقمي، مما قلّل الجهد الإداري اليدوي بنسبة 65%. يشمل عملي Python وNode.js وPostgreSQL وسير عمل الأتمتة عبر n8n.",
+    "My focus is <strong>system architecture and backend engineering</strong>: turning complex business requirements into reliable, high-performance software. I have delivered full-stack features, designed automation workflows, and built rule-based chatbot integrations for production systems.": "يتركّز اهتمامي على <strong>هندسة الأنظمة وتطوير الخلفيات (Backend)</strong>: تحويل متطلبات الأعمال المعقدة إلى برمجيات موثوقة وعالية الأداء. وقد قدّمتُ ميزات متكاملة، وصمّمتُ سير عمل للأتمتة، وبنيتُ تكاملات لروبوتات محادثة قائمة على القواعد في أنظمة إنتاجية.",
+    "Profile Summary": "ملخص الملف",
+    "Current Role": "الدور الحالي",
+    "Full-Stack &amp; Automation Engineer, AppGain.io": "مهندس Full-Stack وأتمتة العمليات، AppGain.io",
+    "Core Stack": "التقنيات الأساسية",
+    "Integrations": "التكاملات",
+    "WhatsApp Cloud API, Meta APIs, Zoho, email services": "واجهات WhatsApp Cloud وMeta وZoho وخدمات البريد الإلكتروني",
+    "Languages": "اللغات",
+    "Arabic (native), English (intermediate)": "العربية (اللغة الأم)، الإنجليزية (متوسط)",
+    "Location": "الموقع",
+    "Cairo, Egypt": "القاهرة، مصر",
+    "Years of professional engineering experience": "سنوات من الخبرة الهندسية المهنية",
+    "Reduction in manual administrative effort through the Military Officers system": "انخفاض في الجهد الإداري اليدوي بفضل نظام شؤون الضباط",
+    "Officers managed by a system I built": "ضابط تُدار شؤونهم عبر نظام قمتُ ببنائه",
+    "Technologies I use day to day": "التقنيات التي أستخدمها يوميًا",
+    "Professional Experience": "الخبرة المهنية",
+    "Mar 2026 — Present": "مارس 2026 — الآن",
+    "Jun 2024 — Mar 2026": "يونيو 2024 — مارس 2026",
+    "Nov 2023 — Jan 2025": "نوفمبر 2023 — يناير 2025",
+    "Current": "حالي",
+    "Backend Developer": "مطوّر خلفيات (Backend)",
+    "Minders (Volunteer)": "Minders (تطوّع)",
+    "<strong>Key result:</strong> 3 n8n automation workflows delivered, and 5 LinkedIn product videos presented.": "<strong>أبرز النتائج:</strong> تسليم 3 مسارات أتمتة عبر n8n، وتقديم 5 فيديوهات تعريفية بالمنتج على LinkedIn.",
+    "<strong>Key result:</strong> Zoho and internal AppGain services synchronized and running in production.": "<strong>أبرز النتائج:</strong> مزامنة Zoho وخدمات AppGain الداخلية وتشغيلها في بيئة الإنتاج.",
+    "<strong>Key result:</strong> 30% improvement in website performance and traffic.": "<strong>أبرز النتائج:</strong> تحسّن بنسبة 30% في أداء الموقع وحجم الزيارات.",
+    "Deliver full-stack features, including UI updates, API endpoint integrations, and Supabase connections, across Node.js, Flask, MongoDB, and PostgreSQL.": "تسليم ميزات متكاملة تشمل تحديثات واجهة المستخدم وتكامل نقاط نهاية الـ API وربط Supabase، عبر Node.js وFlask وMongoDB وPostgreSQL.",
+    "Designed three n8n automation workflows integrating the WhatsApp Cloud API, Meta APIs, email services, and AppGain services.": "تصميم ثلاثة مسارات أتمتة عبر n8n تربط بين WhatsApp Cloud API وواجهات Meta وخدمات البريد الإلكتروني وخدمات AppGain.",
+    "Contributed to a workflow builder inside AppGain connected to n8n, and built rule-based chatbot flows.": "المساهمة في بناء أداة لتصميم سير العمل داخل AppGain مرتبطة بـ n8n، وبناء مسارات روبوتات محادثة قائمة على القواعد.",
+    "Presented on camera in five LinkedIn marketing videos about AppGain projects.": "الظهور أمام الكاميرا في خمسة فيديوهات تسويقية على LinkedIn عن مشاريع AppGain.",
+    "Built and maintained backend services, integrations, and automation workflows with Python (Flask), Docker, and REST APIs.": "بناء وصيانة خدمات الخلفية والتكاملات ومسارات الأتمتة باستخدام Python (Flask) وDocker وواجهات REST.",
+    "Integrated Zoho and internal AppGain services for data synchronization.": "ربط Zoho وخدمات AppGain الداخلية لمزامنة البيانات.",
+    "Handled production monitoring, log analysis, and bug fixing to keep customer-facing services reliable.": "مراقبة بيئة الإنتاج وتحليل السجلات وإصلاح الأخطاء للحفاظ على موثوقية الخدمات المقدّمة للعملاء.",
+    "Led backend architecture using Django and DRF in a team of about eight, designing RESTful APIs and optimizing database queries.": "قيادة هندسة الخلفية باستخدام Django وDRF ضمن فريق من نحو ثمانية أعضاء، مع تصميم واجهات RESTful وتحسين استعلامات قواعد البيانات.",
+    "Improved website performance and traffic by 30% through backend optimizations.": "تحسين أداء الموقع وحجم زياراته بنسبة 30% عبر تحسينات في الخلفية.",
+    "Education &amp; Activities": "التعليم والأنشطة",
+    "Graduated Jul 2024": "تخرّج في يوليو 2024",
+    "B.Sc. Computer Science": "بكالوريوس علوم الحاسب",
+    "Cairo University — GPA 3.38 / 4.0": "جامعة القاهرة — المعدل التراكمي 3.38 / 4.0",
+    "Relevant coursework: Data Structures, Algorithm Design, Database Systems, Advanced Software Engineering, Web Technology.": "المقررات ذات الصلة: هياكل البيانات، تصميم الخوارزميات، نظم قواعد البيانات، هندسة البرمجيات المتقدمة، تقنيات الويب.",
+    "Oct 2022 — Oct 2023": "أكتوبر 2022 — أكتوبر 2023",
+    "Programming Member": "عضو برمجة",
+    "ICPC Community — Cairo University": "مجتمع ICPC — جامعة القاهرة",
+    "Strengthened data structures and algorithms skills through Codeforces contests, solving 60+ problems.": "تعزيز مهارات هياكل البيانات والخوارزميات عبر مسابقات Codeforces، مع حلّ أكثر من 60 مسألة.",
+    "Technical Competencies": "الكفاءات التقنية",
+    "Backend Development": "تطوير الخلفيات",
+    "Frontend Development": "تطوير الواجهات الأمامية",
+    "Databases": "قواعد البيانات",
+    "Infrastructure &amp; DevOps": "البنية التحتية وDevOps",
+    "Automation &amp; Integrations": "الأتمتة والتكاملات",
+    "Tools": "الأدوات",
+    "AI-Assisted Development": "التطوير بمساعدة الذكاء الاصطناعي",
+    "Programming Languages": "لغات البرمجة",
+    "REST API design, JWT authentication, RBAC, and business logic.": "تصميم واجهات REST، والمصادقة عبر JWT، والتحكم بالصلاحيات (RBAC)، ومنطق الأعمال.",
+    "User interface development and desktop applications.": "تطوير واجهات المستخدم وتطبيقات سطح المكتب.",
+    "Query optimization, indexing, and data modeling.": "تحسين الاستعلامات، والفهرسة، ونمذجة البيانات.",
+    "Deployments and CI/CD with GitLab.": "عمليات النشر والتكامل والتسليم المستمر (CI/CD) عبر GitLab.",
+    "Workflow automation and rule-based chatbots.": "أتمتة سير العمل وروبوتات المحادثة القائمة على القواعد.",
+    "Day-to-day development, API testing, and database inspection.": "التطوير اليومي واختبار الواجهات (API) وفحص قواعد البيانات.",
+    "Use of AI tooling in the development workflow (tooling, not model integration).": "استخدام أدوات الذكاء الاصطناعي ضمن سير العمل التطويري (أدوات مساعدة، وليس دمج نماذج).",
+    "Primary languages; Java and C++ at university level.": "اللغتان الأساسيتان؛ وJava وC++ على المستوى الجامعي.",
+    "Selected Projects": "مشاريع مختارة",
+    "Client Project": "مشروع لعميل",
+    "University Project": "مشروع جامعي",
+    "Military Officers Affairs System": "نظام شؤون الضباط العسكريين",
+    "Replaced a paper-based process with a personnel management system for 600+ military officers, automating attendance, leaves, and daily workflows. Built an Arabic RTL engine generating 5+ official PDF types, cutting manual administrative effort by 65%, with 15+ relational models and RBAC managing 1,000+ personnel records. Deployed on Azure with PostgreSQL.": "استبدال عملية ورقية بنظام لإدارة شؤون أكثر من 600 ضابط عسكري، مع أتمتة الحضور والإجازات وسير العمل اليومي. تطوير محرك عربي (RTL) يُنتج أكثر من 5 أنواع من ملفات PDF الرسمية، مما خفّض الجهد الإداري اليدوي بنسبة 65%، مع أكثر من 15 نموذجًا علائقيًا ونظام صلاحيات (RBAC) يُدير أكثر من 1,000 سجل للأفراد. تم النشر على Azure مع PostgreSQL.",
+    "Read the case study": "اقرأ دراسة الحالة",
+    "Challenge": "التحدي",
+    "Solution": "الحل",
+    "Result": "النتيجة",
+    "Delivery": "التسليم",
+    "Attendance, leaves, and daily workflows for 600+ officers were managed on paper, which was slow and hard to audit.": "كانت شؤون الحضور والإجازات وسير العمل اليومي لأكثر من 600 ضابط تُدار ورقيًا، مما جعلها بطيئة وصعبة المراجعة.",
+    "A Django and PostgreSQL personnel management system with 15+ relational models and role-based access control, plus an Arabic RTL engine that generates 5+ official PDF types.": "نظام لإدارة شؤون الأفراد باستخدام Django وPostgreSQL مع أكثر من 15 نموذجًا علائقيًا وتحكم بالصلاحيات حسب الأدوار، إضافةً إلى محرك عربي (RTL) يُنتج أكثر من 5 أنواع من ملفات PDF الرسمية.",
+    "65% less manual administrative effort, 1,000+ personnel records managed with high data integrity, and about 40% faster performance through Django ORM optimization and indexing.": "انخفاض الجهد الإداري اليدوي بنسبة 65%، وإدارة أكثر من 1,000 سجل للأفراد بسلامة بيانات عالية، وتسريع الأداء بنحو 40% عبر تحسين Django ORM والفهرسة.",
+    "Deployed on Azure with a scalable PostgreSQL environment.": "تم النشر على Azure ببيئة PostgreSQL قابلة للتوسع.",
+    "Client system · source code is private": "نظام لعميل · الشيفرة المصدرية خاصة",
+    "Sporting Academy Management System": "نظام إدارة الأكاديمية الرياضية",
+    "An academy management system combining an Electron.js frontend with a DRF backend, delivering 20+ APIs and 10+ core modules. Engineered secure JWT APIs with search, filtering, and analytics, plus an export solution generating 10+ professional report formats.": "نظام لإدارة الأكاديمية يجمع بين واجهة أمامية بـ Electron.js وخلفية بـ DRF، ويضم أكثر من 20 واجهة API وأكثر من 10 وحدات أساسية. تم بناء واجهات آمنة بـ JWT مع البحث والتصفية والتحليلات، إضافةً إلى حل للتصدير يُنتج أكثر من 10 صيغ تقارير احترافية.",
+    "Production system · private repository": "نظام قيد التشغيل · مستودع خاص",
+    "Backend for a Flutter-based study app with to-do lists, task scheduling, file storage, and an audio player for 100+ users. Added group functionality with materials, posts, comments, and likes, increasing user retention by 15%. Deployed on Azure.": "الخلفية البرمجية لتطبيق مذاكرة مبني على Flutter يضم قوائم المهام وجدولة المهام وتخزين الملفات ومشغّلًا صوتيًا لأكثر من 100 مستخدم. تمت إضافة ميزة المجموعات مع المواد والمنشورات والتعليقات والإعجابات، مما رفع معدل الاحتفاظ بالمستخدمين بنسبة 15%. تم النشر على Azure.",
+    "View code →": "عرض الشيفرة ←",
+    "Product Videos for AppGain": "فيديوهات تعريفية بمنتجات AppGain",
+    "I present short marketing videos on LinkedIn about AppGain products and projects, translating technical capabilities into clear business value.": "أقدّم فيديوهات تسويقية قصيرة على LinkedIn عن منتجات AppGain ومشاريعها، أحوّل فيها القدرات التقنية إلى قيمة تجارية واضحة.",
+    "Featured": "مميّز",
+    "Oct 2026": "أكتوبر 2026",
+    "Nov 2026": "نوفمبر 2026",
+    "Sales Automation with AppGain": "أتمتة المبيعات مع AppGain",
+    "Every minute delay in customer response can cost you a sale. With ConnectGain, manage the customer journey from first message to follow-up through a unified system with AI-powered responses, smart handoffs, and automated CRM tracking.": "كل دقيقة تأخير في الرد على العميل قد تكلّفك صفقة. مع ConnectGain، أدِر رحلة العميل من أول رسالة حتى المتابعة عبر نظام موحّد يوفّر ردودًا مدعومة بالذكاء الاصطناعي، وتحويلًا ذكيًا للمحادثات، وتتبعًا آليًا في CRM.",
+    "Watch on LinkedIn →": "شاهد على LinkedIn ←",
+    "Travel Tech Solutions": "حلول تقنية للسفر والسياحة",
+    "Every travel inquiry can be the start of a new booking. With ConnectGain, manage the customer journey from first inquiry to booking completion from one place with unified inbox, AI agent, CRM integration, and automated follow-ups.": "كل استفسار سفر قد يكون بداية حجز جديد. مع ConnectGain، أدِر رحلة العميل من أول استفسار حتى إتمام الحجز من مكان واحد عبر صندوق وارد موحّد ووكيل ذكاء اصطناعي وتكامل مع CRM ومتابعات آلية.",
+    "AI Agents for CRM": "وكلاء الذكاء الاصطناعي لـ CRM",
+    "AI isn't just about responding to messages—it can be part of your team. With ConnectGain, AI agents understand customer inquiries, qualify leads, record opportunities in CRM, and route conversations to the right team based on your workflows.": "الذكاء الاصطناعي لا يقتصر على الرد على الرسائل، بل يمكن أن يكون جزءًا من فريقك. مع ConnectGain، يفهم وكلاء الذكاء الاصطناعي استفسارات العملاء، ويؤهّلون العملاء المحتملين، ويسجّلون الفرص في CRM، ويوجّهون المحادثات إلى الفريق المناسب وفق سير عملك.",
+    "View All Videos on LinkedIn →": "عرض جميع الفيديوهات على LinkedIn ←",
+    "Technical Writing": "كتابات تقنية",
+    "Posts on backend systems, full-stack development, automation, and lessons learned in production, published on LinkedIn.": "منشورات عن أنظمة الخلفية والتطوير المتكامل والأتمتة ودروس مستفادة من بيئة الإنتاج، منشورة على LinkedIn.",
+    "Sep 2026": "سبتمبر 2026",
+    "Aug 2026": "أغسطس 2026",
+    "Secure File Uploads": "رفع الملفات بأمان",
+    "A practical security series covering file validation, rate limiting, safe filenames, authorization, malware scanning, and secure storage.": "سلسلة عملية في الأمان تغطي التحقق من الملفات، وتحديد معدل الطلبات، وأسماء الملفات الآمنة، والتفويض، وفحص البرمجيات الخبيثة، والتخزين الآمن.",
+    "Read on LinkedIn →": "اقرأ على LinkedIn ←",
+    "Cloud Functions vs Broker + Workers": "Cloud Functions مقابل Broker + Workers",
+    "A simple breakdown of Cloud Functions and Broker + Workers, explaining how they solve different problems and how they can work together.": "شرح مبسّط لـ Cloud Functions وBroker + Workers، يوضح كيف تحلّ كل منهما مشكلات مختلفة وكيف يمكن أن تعملا معًا.",
+    "Core Business Logic vs Cloud Functions": "منطق الأعمال الأساسي مقابل Cloud Functions",
+    "How to decide whether logic belongs in the core backend or should run as a separate Cloud Function or background task.": "كيف تقرّر ما إذا كان المنطق مكانه الخلفية الأساسية، أم يجب تشغيله كـ Cloud Function منفصلة أو كمهمة في الخلفية.",
+    "HTTP vs SSE vs WebSocket": "HTTP مقابل SSE مقابل WebSocket",
+    "A practical comparison of HTTP, SSE, and WebSocket, explaining when to use each approach for real-time features.": "مقارنة عملية بين HTTP وSSE وWebSocket، توضح متى يُستخدم كل أسلوب في الميزات الفورية.",
+    "Get in Touch": "لنتواصل",
+    "I welcome conversations about full-stack, backend, and automation engineering opportunities.": "يسعدني الحديث عن فرص العمل في التطوير المتكامل وتطوير الخلفيات وهندسة الأتمتة.",
+    "Email": "البريد الإلكتروني",
+    "Phone": "الهاتف",
+    "Copy email": "نسخ البريد",
+    "Copied ✓": "تم النسخ ✓",
+    "Hesham Ahmed Abdelatty — Full-Stack &amp; Automation Engineer": "هشام أحمد عبد العاطي — مهندس Full-Stack وأتمتة العمليات",
+    "© 2026 Hesham Ahmed Abdelatty · Cairo, Egypt": "© 2026 هشام أحمد عبد العاطي · القاهرة، مصر",
+    "Last updated": "آخر تحديث"
+  };
+  const tr = s => (LANG === 'ar' && AR[s]) || s;
+
   // Theme toggle (saved choice, otherwise system preference)
   const themeBtn = $('#theme-toggle');
   const themeMeta = $('meta[name="theme-color"]');
   function applyTheme(t, save) {
     root.setAttribute('data-theme', t);
-    themeBtn.setAttribute('aria-label', t === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+    themeBtn.setAttribute('aria-label', t === 'dark' ? tr('Switch to light theme') : tr('Switch to dark theme'));
     if (save) { try { localStorage.setItem('theme', t); } catch (e) {} }
   }
   applyTheme(root.getAttribute('data-theme') || 'light', false);
@@ -1046,10 +1250,10 @@
     try {
       await navigator.clipboard.writeText(email);
       copyBtn.classList.add('copied');
-      copyBtn.textContent = 'Copied ✓';
+      copyBtn.textContent = tr('Copied ✓');
       setTimeout(() => {
         copyBtn.classList.remove('copied');
-        copyBtn.textContent = 'Copy email';
+        copyBtn.textContent = tr('Copy email');
       }, 2000);
     } catch (err) {
       console.error('Failed to copy email:', err);
@@ -1057,12 +1261,70 @@
   });
 
   // "Last updated" from the file's modification date, falling back to the static text
+  let lastMod = null;
   try {
     const d = new Date(document.lastModified);
-    if (!isNaN(d) && d.getFullYear() >= 2026) {
-      $('#last-updated').textContent = d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-    }
+    if (!isNaN(d) && d.getFullYear() >= 2026) lastMod = d;
   } catch (e) {}
+  function renderLastUpdated() {
+    const el = $('#last-updated');
+    if (lastMod) {
+      el.textContent = lastMod.toLocaleDateString(LANG === 'ar' ? 'ar-u-nu-latn' : 'en-US', { month: 'long', year: 'numeric' });
+    } else {
+      el.textContent = LANG === 'ar' ? 'نوفمبر 2026' : 'November 2026';
+    }
+  }
+
+  // ---- Language switch (English / Arabic) ----
+  // Every element whose English text appears in the AR dictionary is registered once; switching
+  // language swaps its content (or alt / aria-label). Nothing is fetched, so it is instant.
+  const langBtn = $('#lang-toggle');
+  const SKIP_IDS = new Set(['theme-toggle', 'lang-toggle', 'last-updated', 'email-link', 'phone-link']);
+  const norm = s => s.replace(/\s+/g, ' ').trim();
+  const items = [];
+  document.body.querySelectorAll('*').forEach(el => {
+    if (el.closest('script,style,svg,#lang-toggle') || SKIP_IDS.has(el.id)) return;
+    if (el.parentElement && el.parentElement.closest('[data-i18n]')) return;
+    const key = norm(el.innerHTML);
+    if (key && AR[key]) {
+      el.setAttribute('data-i18n', '');
+      items.push({ el, attr: null, en: el.innerHTML, ar: AR[key] });
+    }
+  });
+  document.querySelectorAll('[alt],[aria-label]').forEach(el => {
+    if (SKIP_IDS.has(el.id)) return;
+    ['alt', 'aria-label'].forEach(attr => {
+      const v = el.getAttribute(attr);
+      if (v && AR[v]) items.push({ el, attr, en: v, ar: AR[v] });
+    });
+  });
+  const descMeta = $('meta[name="description"]');
+  const titleEn = document.title, descEn = descMeta.content;
+  let swapped = false;
+
+  function applyLang(lang, save) {
+    LANG = lang;
+    root.lang = lang;
+    root.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    if (lang === 'ar' && window.loadArFonts) window.loadArFonts();
+    if (lang === 'ar' || swapped) {
+      items.forEach(i => {
+        const v = lang === 'ar' ? i.ar : i.en;
+        if (i.attr) i.el.setAttribute(i.attr, v); else i.el.innerHTML = v;
+      });
+      swapped = true;
+    }
+    document.title = lang === 'ar' ? (AR[titleEn] || titleEn) : titleEn;
+    descMeta.content = lang === 'ar' ? (AR[descEn] || descEn) : descEn;
+    langBtn.textContent = lang === 'ar' ? 'EN' : 'عربي';
+    langBtn.lang = lang === 'ar' ? 'en' : 'ar';
+    langBtn.setAttribute('aria-label', lang === 'ar' ? 'Switch to English' : 'Switch to Arabic');
+    applyTheme(root.getAttribute('data-theme') || 'light', false);   // refresh the theme button label
+    renderLastUpdated();
+    if (save) { try { localStorage.setItem('lang', lang); } catch (e) {} }
+  }
+  langBtn.addEventListener('click', () => applyLang(LANG === 'ar' ? 'en' : 'ar', true));
+  applyLang(LANG, false);
 </script>
 
 </body>
